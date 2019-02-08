@@ -9,11 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var detailView = SearchDetailView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("We got here")
-        // Do any additional setup after loading the view, typically from a nib.
+        view.addSubview(detailView)
     }
 
 
