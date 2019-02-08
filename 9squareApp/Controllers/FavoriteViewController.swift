@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavoriteViewController.swift
 //  9squareApp
 //
 //  Created by Donkemezuo Raymond Tariladou on 2/8/19.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("We got here")
-        // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
     }
+    
 
+  
 
 }
-
