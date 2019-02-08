@@ -12,12 +12,11 @@ class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD:9squareApp/Controllers/FavoriteViewController.swift
         self.view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-=======
+
        print("jane")
         print("")
->>>>>>> jane:9squareApp/ViewController.swift
+
     }
     
 
