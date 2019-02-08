@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
+    
+    let mainSearchView = SearchView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       print("jane")
-        print("")
+        self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+    self.view.addSubview(mainSearchView)
+        
     }
 
 
