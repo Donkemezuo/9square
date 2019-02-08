@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Branch created")
+        print("We got here")
+        // Do any additional setup after loading the view, typically from a nib.
     }
 
 
