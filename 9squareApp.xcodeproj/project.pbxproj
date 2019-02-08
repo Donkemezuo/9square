@@ -13,6 +13,7 @@
 		04C68986220DF4DE0081355C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C68985220DF4DE0081355C /* Assets.xcassets */; };
 		04C68989220DF4DE0081355C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C68987220DF4DE0081355C /* LaunchScreen.storyboard */; };
 		A5584D7B220E1E7C001C5763 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7A220E1E7C001C5763 /* DataPersistenceManager.swift */; };
+		A5584D7D220E1F4A001C5763 /* VenueMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7C220E1F4A001C5763 /* VenueMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		04C68988220DF4DE0081355C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04C6898A220DF4DE0081355C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5584D7A220E1E7C001C5763 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
+		A5584D7C220E1F4A001C5763 /* VenueMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				04C6897E220DF4DC0081355C /* AppDelegate.swift */,
 				04C68980220DF4DC0081355C /* ViewController.swift */,
 				A5584D7A220E1E7C001C5763 /* DataPersistenceManager.swift */,
+				A5584D7C220E1F4A001C5763 /* VenueMapView.swift */,
 				04C68982220DF4DC0081355C /* Main.storyboard */,
 				04C68985220DF4DE0081355C /* Assets.xcassets */,
 				04C68987220DF4DE0081355C /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5584D7B220E1E7C001C5763 /* DataPersistenceManager.swift in Sources */,
+				A5584D7D220E1F4A001C5763 /* VenueMapView.swift in Sources */,
 				04C68981220DF4DC0081355C /* ViewController.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
 			);
