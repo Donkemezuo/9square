@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MainViewController: UIViewController {
     
     let mainSearchView = SearchView()
@@ -16,9 +17,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
     self.view.addSubview(mainSearchView)
-        
     }
-
-
+    
+    
 }
-
