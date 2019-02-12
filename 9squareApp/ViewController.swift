@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var detailView = SearchDetailView()
+    var detailView = ListDetailView()
 
     override func viewDidLoad() {
         super.viewDidLoad()

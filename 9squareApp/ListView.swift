@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchListView: UIView {
+class ListView: UIView {
     public lazy var searchTableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
@@ -18,6 +18,7 @@ class SearchListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
+        self.searchTableView.register(ListTableViewCell.self, forCellReuseIdentifier: "ListCell")
         
     }
     
