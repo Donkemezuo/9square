@@ -8,7 +8,7 @@
 
 import Foundation
 
-// search model
+// search model - no address, manually search map 
 // https://api.foursquare.com/v2/venues/search?client_id=CGSN0AWQJMTHFCUTCOVOMK4JSZHZN5VPM5RZDT3ATD5YYKRR&client_secret=4IHTGLLLEMYWB2YM3KKRZYKX1CITZEL4MYYGXURMJY3BCBKG&v=20180323&ll=40.7243,-74.0018&query=arepas
 
 struct FourSquareModel: Codable {
