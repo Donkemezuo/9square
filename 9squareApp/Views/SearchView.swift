@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class SearchView: UIView {
  
 
-    let search: UISearchBar = {
+    public lazy var search: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.backgroundColor = UIColor.blue.withAlphaComponent(0.1)
         searchBar.layer.cornerRadius = 10.0
@@ -20,20 +21,30 @@ class SearchView: UIView {
         
     }()
     
-    let segmentedControl: UISegmentedControl = {
-        var items = ["List","Map"]
-        let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.backgroundColor = UIColor.red.withAlphaComponent(0.5)
-        segmentedControl.selectedSegmentIndex = 0
-        
-        return segmentedControl
-        
+    public lazy var mapView: MKMapView = {
+            let map = MKMapView()
+                map.layer.cornerRadius = 5.0
+                return map
     }()
-    
+
+    public lazy var collectionView: UICollectionView = {
+        
+            let cellLayout = UICollectionViewFlowLayout()
+                cellLayout.scrollDirection = .horizontal
+                cellLayout.sectionInset = UIEdgeInsets.init(top: 20, left: 10, bottom: 20, right: 10)
+        
+                cellLayout.itemSize = CGSize.init(width: 300, height: 300)
+            let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: cellLayout)
+                collectionView.backgroundColor = UIColor.gray
+                collectionView.layer.cornerRadius = 5.0
+        return collectionView
+    }()
+
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInt()
+        self.collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionViewCell")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,18 +58,24 @@ class SearchView: UIView {
     
     func  setConstrains() {
         addSubview(search)
-        addSubview(segmentedControl)
+        addSubview(mapView)
+        addSubview(collectionView)
         search.translatesAutoresizingMaskIntoConstraints = false
-        search.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        search.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
-        search.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11).isActive = true
-        //search.heightAnchor.constraint(equalTo: heightAnchor, constant: 20).isActive = true
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        search.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        search.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        search.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+       
+        mapView.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 5).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
         
-        
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 10).isActive = true
-        segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+        collectionView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 5).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true 
         
     }
     
