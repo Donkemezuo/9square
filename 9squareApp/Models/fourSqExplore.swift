@@ -10,8 +10,11 @@ import Foundation
 
 // explore
 // https://api.foursquare.com/v2/venues/explore?client_id=CGSN0AWQJMTHFCUTCOVOMK4JSZHZN5VPM5RZDT3ATD5YYKRR&client_secret=4IHTGLLLEMYWB2YM3KKRZYKX1CITZEL4MYYGXURMJY3BCBKG&v=20180323&ll=40.7243,-74.0018&query=arepas&limit=1
+
 struct FourSquareExplore: Codable {
-    let response: String
+    let response: ResponseInfo
+}
+struct ResponseInfo: Codable {
     let suggestedRadius: Int
     let headerLocation: String
     let headerFullLocation: String
@@ -20,19 +23,22 @@ struct FourSquareExplore: Codable {
     let groups: [GroupWrap]
 }
 struct GroupWrap: Codable {
+    let items: [ItemWrap]
+}
+struct ItemWrap: Codable {
     let venue: VenueWrap
 }
 struct VenueWrap: Codable {
     let id: String
     let name: String
     let location: LocationWrapper
+    let categories: [CategoryWrapper]
+    let delivery: DeliveryWrap
 }
 struct LocationWrapper: Codable {
     let lat: Double
     let lng: Double
     let formattedAddress: [String]
-    let categories: [CategoryWrapper]
-    let delivery: DeliveryWrap
 }
 
 struct CategoryWrapper: Codable {
