@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         mainVCNav.title = "Search"
         favoriteVC.title = "Favorites"
+    
         
         return true
     }

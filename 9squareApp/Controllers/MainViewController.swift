@@ -43,6 +43,8 @@ class MainViewController: UIViewController {
     }
 }
 
+
+
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dummyArray.count
@@ -56,6 +58,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     
+
 }
 
 
