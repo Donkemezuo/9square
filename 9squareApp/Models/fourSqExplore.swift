@@ -39,7 +39,6 @@ struct LocationWrapper: Codable {
     let lat: Double
     let lng: Double
     let formattedAddress: [String]
-    
 }
 
 struct CategoryWrapper: Codable {
