@@ -25,6 +25,7 @@
 		914DCBC22216087B00800A25 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBC02216087B00800A25 /* ListDetailViewController.swift */; };
 		914DCBC32216087B00800A25 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBC12216087B00800A25 /* ListViewController.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
+		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		914DCBC12216087B00800A25 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A5584D7C220E1F4A001C5763 /* VenueMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueMapView.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A5849AF5221625E3009E2A14 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = 9squareApp/Models/NetworkServices/ImageHelper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				0586C240221383A30095C3AF /* AppError.swift */,
 				0586C243221384140095C3AF /* NetworkHelper.swift */,
+				A5849AF5221625E3009E2A14 /* ImageHelper.swift */,
 			);
 			name = NetworkServices;
 			path = Models/NetworkServices;
@@ -232,6 +235,7 @@
 				04D66EB42215FEAE00731E15 /* SearchCollectionViewCell.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
 				914DCBBB2216063C00800A25 /* ListTableViewCell.swift in Sources */,
+				A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
