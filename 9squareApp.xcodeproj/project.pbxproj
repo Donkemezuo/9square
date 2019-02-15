@@ -22,6 +22,11 @@
 		0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C245221384450095C3AF /* SearchAPIClient.swift */; };
 		0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C247221384A40095C3AF /* ExploreAPIClient.swift */; };
 		05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */; };
+		05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */; };
+		05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */; };
+		05B7E10122176BD100B299F7 /* FaveRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10022176BD100B299F7 /* FaveRestaurant.swift */; };
+		05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10222176CA600B299F7 /* Date+Extensions.swift */; };
+		05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10522176D8600B299F7 /* String + DateExtensions.swift */; };
 		914DCBBD2216063C00800A25 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBBA2216063C00800A25 /* DetailView.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
@@ -45,6 +50,11 @@
 		0586C245221384450095C3AF /* SearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIClient.swift; sourceTree = "<group>"; };
 		0586C247221384A40095C3AF /* ExploreAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreAPIClient.swift; sourceTree = "<group>"; };
 		05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqPhotoModel.swift; sourceTree = "<group>"; };
+		05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
+		05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDataManager.swift; sourceTree = "<group>"; };
+		05B7E10022176BD100B299F7 /* FaveRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaveRestaurant.swift; sourceTree = "<group>"; };
+		05B7E10222176CA600B299F7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		05B7E10522176D8600B299F7 /* String + DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + DateExtensions.swift"; sourceTree = "<group>"; };
 		914DCBA5221388E000800A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914DCBBA2216063C00800A25 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Views/DetailView.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +92,8 @@
 		04C6897D220DF4DC0081355C /* 9squareApp */ = {
 			isa = PBXGroup;
 			children = (
+				05B7E10422176D6400B299F7 /* Date Helpers */,
+				05B7E0FD2217696600B299F7 /* File Manager Helpers */,
 				04D66EB22215FE9300731E15 /* Cell */,
 				04C68995220E21A40081355C /* Controllers */,
 				04C68994220E21890081355C /* Views */,
@@ -126,8 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				0586C23B22137E840095C3AF /* fourSqExplore.swift */,
+				05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */,
 				0586C247221384A40095C3AF /* ExploreAPIClient.swift */,
 				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
+				05B7E10022176BD100B299F7 /* FaveRestaurant.swift */,
 				040337732217644E0063960B /* SecretKeys.swift */,
 				0586C23E22137EE70095C3AF /* fourSqSearch.swift */,
 				0586C245221384450095C3AF /* SearchAPIClient.swift */,
@@ -145,6 +159,23 @@
 			);
 			name = NetworkServices;
 			path = Models/NetworkServices;
+			sourceTree = "<group>";
+		};
+		05B7E0FD2217696600B299F7 /* File Manager Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */,
+			);
+			path = "File Manager Helpers";
+			sourceTree = "<group>";
+		};
+		05B7E10422176D6400B299F7 /* Date Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				05B7E10222176CA600B299F7 /* Date+Extensions.swift */,
+				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
+			);
+			path = "Date Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +250,7 @@
 			files = (
 				04D66EB62216259700731E15 /* DetailViewController.swift in Sources */,
 				04C68993220E21750081355C /* SearchView.swift in Sources */,
+				05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */,
 				05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */,
 				04C68991220E1EC60081355C /* FavoriteViewController.swift in Sources */,
 				A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */,
@@ -226,13 +258,17 @@
 				0586C244221384140095C3AF /* NetworkHelper.swift in Sources */,
 				0586C241221383A30095C3AF /* AppError.swift in Sources */,
 				0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */,
+				05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */,
 				0586C23F22137EE70095C3AF /* fourSqSearch.swift in Sources */,
 				0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */,
 				A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */,
 				0586C23C22137E840095C3AF /* fourSqExplore.swift in Sources */,
+				05B7E10122176BD100B299F7 /* FaveRestaurant.swift in Sources */,
 				04D66EB42215FEAE00731E15 /* SearchCollectionViewCell.swift in Sources */,
+				05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
 				040337742217644E0063960B /* SecretKeys.swift in Sources */,
+				05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */,
 				A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
