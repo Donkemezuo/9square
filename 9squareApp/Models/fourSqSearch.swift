@@ -30,6 +30,16 @@ struct LocationWrap: Codable {
     let lng: Double?
     let labeledLatLngs: [LLWrap]
     let formattedAddress: [String]
+    var modifiedAddress: String {
+        let address = """
+        
+        \(formattedAddress[0]),
+        \(formattedAddress[1]),
+        \(formattedAddress[2])
+        """
+        
+        return address
+    }
 }
 struct LLWrap: Codable {
     let label: String
