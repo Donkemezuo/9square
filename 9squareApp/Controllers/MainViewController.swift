@@ -13,9 +13,6 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-     let dummyArray = ["Yap","Kev","DM","Micheal","Greg","KK","Uber","Late","Wild","After","BB","Cutie","Company","Lord","We","Wining","Get","Help","When","You","Can","Else","You","Will","Die","Yes","I","Said","It","Kill","Mo","eee","rrr","yyy","rrr","qqq","uuu","ooo","mmm","sss","zzz","nnn","lll","iii"]
-    
-
     
     let mainSearchView = SearchView()
     private let locationManager = CLLocationManager()
@@ -90,6 +87,15 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         return collectionViewcell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let venue = venues[indexPath.row]
+        let destination = DetailViewController(restuarant: venue)
+        destination.detailView.venueName.text = venue.name
+        destination.detailView.descriptionView.text = venue.location.address
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
     
     
 
