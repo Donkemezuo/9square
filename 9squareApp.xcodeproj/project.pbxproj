@@ -221,11 +221,9 @@
 				0586C23C22137E840095C3AF /* fourSqExplore.swift in Sources */,
 				04D66EB42215FEAE00731E15 /* SearchCollectionViewCell.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
-<<<<<<< HEAD
 				914DCBBB2216063C00800A25 /* ListTableViewCell.swift in Sources */,
 				A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */,
-=======
->>>>>>> 746c6f746e1d0f963d3e0b7b391e64a2cfda91fa
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
