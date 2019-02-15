@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListDetailView: UIView {
+class DetailView: UIView {
     
     public lazy var detailImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "background_1"))
