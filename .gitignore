@@ -4,6 +4,8 @@
 
 .DS_Store
 9squareApp/.DS_Store
+.git/.MERGE_MSG.swp
+.git/.MERGE_MSG
 
 ## Build generated
 build/

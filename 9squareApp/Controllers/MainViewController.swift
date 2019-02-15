@@ -13,20 +13,19 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-     let dummyArray = ["Yap","Kev","DM","Micheal","Greg","KK","Uber","Late","Wild","After","BB","Cutie","Company","Lord","We","Wining","Get","Help","When","You","Can","Else","You","Will","Die","Yes","I","Said","It","Kill","Mo","eee","rrr","yyy","rrr","qqq","uuu","ooo","mmm","sss","zzz","nnn","lll","iii"]
-    
-
     
     let mainSearchView = SearchView()
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
-    private var venues = [VenueStruct]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.mainSearchView.collectionView.reloadData()
-            }
-        }
-    }
+    private var imageLinksArray = [String]()
+    private var venues = [VenueStruct]()
+//    {
+//        didSet {
+//            DispatchQueue.main.async {
+//                self.mainSearchView.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     fileprivate func getVenues() {
         SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: "sushi") { (appError, venues) in
@@ -34,7 +33,9 @@ class MainViewController: UIViewController {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
                 self.venues = venues
-                //dump(self.venues)
+                DispatchQueue.main.async {
+                    self.mainSearchView.collectionView.reloadData()
+                }
             }
         }
     }
@@ -77,19 +78,35 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let venueToSet = venues[indexPath.row]
         collectionViewcell.nameLabel.text = venueToSet.name
         collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " " +  venueToSet.location.formattedAddress[1]
-        if let safeVenueToSet = venueToSet.categories.first {
-            let imageURL = safeVenueToSet.icon.prefix + safeVenueToSet.icon.suffix
-            ImageHelper.fetchImageFromNetwork(urlString: imageURL) { (appError, image) in
-                if let appError = appError {
-                    print("imageHelper - \(appError)")
-                } else if let image = image {
-                    collectionViewcell.imageView.image = image
+        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
+            if let appError = appError {
+                print("imageClient - \(appError)")
+            } else if let imageLink = imageLink {
+                self.venues[indexPath.row].imageLink = imageLink
+                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
+                    DispatchQueue.main.async {
+                        collectionViewcell.imageView.image = imageIsInCache
+                    }
+                } else {
+                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
+                        if let appError = appError {
+                            print("imageHelper error - \(appError)")
+                        } else if let image = image {
+                            collectionViewcell.imageView.image = image
+                        }
+                    })
                 }
             }
-
         }
         return collectionViewcell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let venue = venues[indexPath.row]
+        let destination = DetailViewController(restuarant: venue)
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
     
     
 
