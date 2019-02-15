@@ -11,7 +11,7 @@ import Foundation
 final class ImageAPIClient {
     static func getImages(venueID: String, completionHandler: @escaping ((AppError?, String?) -> Void)) {
         //TODO: interpolate current date
-        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=CGSN0AWQJMTHFCUTCOVOMK4JSZHZN5VPM5RZDT3ATD5YYKRR&client_secret=4IHTGLLLEMYWB2YM3KKRZYKX1CITZEL4MYYGXURMJY3BCBKG&v=20190215"
+        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=\(SecretKeys.raymondID)&client_secret=\(SecretKeys.raymondSecret)&v=20190215"
         NetworkHelper.shared.performDataTask(endpointURLString: URL, httpMethod: "GET", httpBody: nil) { (appError, data) in
             if let error = appError {
                 completionHandler(error, nil)
