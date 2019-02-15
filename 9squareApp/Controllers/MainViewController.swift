@@ -74,16 +74,22 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let venueToSet = venues[indexPath.row]
         collectionViewcell.nameLabel.text = venueToSet.name
         collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " " +  venueToSet.location.formattedAddress[1]
-        if let safeVenueToSet = venueToSet.categories.first {
-            let imageURL = safeVenueToSet.icon.prefix + safeVenueToSet.icon.suffix
-            ImageHelper.fetchImageFromNetwork(urlString: imageURL) { (appError, image) in
-                if let appError = appError {
-                    print("imageHelper - \(appError)")
-                } else if let image = image {
-                    collectionViewcell.imageView.image = image
+        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
+            if let appError = appError {
+                print("imageClient - \(appError)")
+            } else if let imageLink = imageLink {
+                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
+                    collectionViewcell.imageView.image = imageIsInCache
+                } else {
+                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
+                        if let appError = appError {
+                            print("imageHelper error - \(appError)")
+                        } else if let image = image {
+                            collectionViewcell.imageView.image = image
+                        }
+                    })
                 }
             }
-
         }
         return collectionViewcell
     }
