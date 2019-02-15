@@ -19,6 +19,7 @@ struct ResponseWrap: Codable {
     let venues: [VenueStruct]
 }
 struct VenueStruct: Codable {
+    var imageLink: String? 
     let id: String
     let name: String
     let location: LocationWrap
