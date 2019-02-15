@@ -26,6 +26,7 @@ class DetailView: UIView {
     
     public lazy var descriptionView: UITextView = {
         let textView = UITextView()
+        textView.dataDetectorTypes = [.address, .phoneNumber]
         textView.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         
         return textView
