@@ -98,7 +98,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let venue = venues[indexPath.row]
         let destination = DetailViewController(restuarant: venue)
         destination.detailView.venueName.text = venue.name
-        destination.detailView.descriptionView.text = venue.location.address
+        destination.detailView.venueDescription.text = venue.location.modifiedAddress
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
