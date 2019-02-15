@@ -15,13 +15,35 @@ class MainViewController: UIViewController {
     
      let dummyArray = ["Yap","Kev","DM","Micheal","Greg","KK","Uber","Late","Wild","After","BB","Cutie","Company","Lord","We","Wining","Get","Help","When","You","Can","Else","You","Will","Die","Yes","I","Said","It","Kill","Mo","eee","rrr","yyy","rrr","qqq","uuu","ooo","mmm","sss","zzz","nnn","lll","iii"]
     
+
+    
     let mainSearchView = SearchView()
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
+    private var venues = [VenueStruct]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.mainSearchView.collectionView.reloadData()
+            }
+        }
+    }
+    
+    fileprivate func getVenues() {
+        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: "sushi") { (appError, venues) in
+            if let appError = appError {
+                print("getVenue - \(appError)")
+            } else if let venues = venues {
+                self.venues = venues
+                //dump(self.venues)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "9Square"
         view.addSubview(mainSearchView)
+        getVenues()
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
         mainSearchView.collectionView.delegate = self
         mainSearchView.collectionView.dataSource = self
@@ -43,19 +65,34 @@ class MainViewController: UIViewController {
     }
 }
 
+
+
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyArray.count
+        return venues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell()}
-        let restuarant = dummyArray[indexPath.row]
-        collectionViewcell.nameLabel.text = restuarant
+        guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
+        let venueToSet = venues[indexPath.row]
+        collectionViewcell.nameLabel.text = venueToSet.name
+        collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " " +  venueToSet.location.formattedAddress[1]
+        if let safeVenueToSet = venueToSet.categories.first {
+            let imageURL = safeVenueToSet.icon.prefix + safeVenueToSet.icon.suffix
+            ImageHelper.fetchImageFromNetwork(urlString: imageURL) { (appError, image) in
+                if let appError = appError {
+                    print("imageHelper - \(appError)")
+                } else if let image = image {
+                    collectionViewcell.imageView.image = image
+                }
+            }
+
+        }
         return collectionViewcell
     }
     
     
+
 }
 
 
