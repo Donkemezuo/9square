@@ -10,18 +10,18 @@ import UIKit
 
 class DetailView: UIView {
     
-    public lazy var detailImage: UIImageView = {
+    public lazy var venueImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "background_1"))
         return image 
     }()
     
-    public lazy var eventDetailLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Event Detail Label"
-        label.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        return label
+    public lazy var venueName: UILabel = {
+        let venueName = UILabel()
+        venueName.text = "Event Detail Label"
+        venueName.backgroundColor = #colorLiteral(red: 0, green: 0.9914394021, blue: 1, alpha: 1)
+        venueName.textAlignment = .center
+        venueName.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return venueName
     }()
     
     public lazy var descriptionView: UITextView = {
@@ -32,28 +32,6 @@ class DetailView: UIView {
         return textView
     }()
     
-    
-    func setImage(){
-        addSubview(detailImage)
-        detailImage.translatesAutoresizingMaskIntoConstraints = false
-        detailImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        detailImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
-        detailImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
-        detailImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11).isActive = true
-        
-    }
-
-    func setEventLabel () {
-       addSubview(eventDetailLabel)
-        eventDetailLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventDetailLabel.topAnchor.constraint(equalTo: detailImage.bottomAnchor).isActive = true
-        eventDetailLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
-        eventDetailLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11).isActive = true
-    }
-    
-    func setEventDescription(){
-        
-    }
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -67,9 +45,26 @@ class DetailView: UIView {
     }
     
     func commonInit() {
-        setImage()
-        setEventLabel()
-        setEventDescription()
+        SetConstrains()
+}
+    
+    func SetConstrains(){
+        addSubview(venueImage)
+        addSubview(venueName)
+        venueImage.translatesAutoresizingMaskIntoConstraints = false
+        venueImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        venueImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -300).isActive = true
+        venueImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
+        venueImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11).isActive = true
+        addSubview(venueName)
+        venueName.translatesAutoresizingMaskIntoConstraints = false
+        venueName.topAnchor.constraint(equalTo: venueImage.bottomAnchor).isActive = true
+        venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11).isActive = true
+        venueName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11).isActive = true
+        
     }
+
+
+
 
 }
