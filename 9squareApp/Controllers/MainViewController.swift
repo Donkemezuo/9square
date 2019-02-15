@@ -17,13 +17,15 @@ class MainViewController: UIViewController {
     let mainSearchView = SearchView()
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
-    private var venues = [VenueStruct]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.mainSearchView.collectionView.reloadData()
-            }
-        }
-    }
+    private var imageLinksArray = [String]()
+    private var venues = [VenueStruct]()
+//    {
+//        didSet {
+//            DispatchQueue.main.async {
+//                self.mainSearchView.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     fileprivate func getVenues() {
         SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: "sushi") { (appError, venues) in
@@ -31,7 +33,9 @@ class MainViewController: UIViewController {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
                 self.venues = venues
-                //dump(self.venues)
+                DispatchQueue.main.async {
+                    self.mainSearchView.collectionView.reloadData()
+                }
             }
         }
     }
@@ -78,8 +82,11 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             if let appError = appError {
                 print("imageClient - \(appError)")
             } else if let imageLink = imageLink {
+                self.venues[indexPath.row].imageLink = imageLink
                 if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
-                    collectionViewcell.imageView.image = imageIsInCache
+                    DispatchQueue.main.async {
+                        collectionViewcell.imageView.image = imageIsInCache
+                    }
                 } else {
                     ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
                         if let appError = appError {
@@ -97,8 +104,6 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let venue = venues[indexPath.row]
         let destination = DetailViewController(restuarant: venue)
-        destination.detailView.venueName.text = venue.name
-        destination.detailView.venueDescription.text = venue.location.modifiedAddress
         self.navigationController?.pushViewController(destination, animated: true)
     }
     

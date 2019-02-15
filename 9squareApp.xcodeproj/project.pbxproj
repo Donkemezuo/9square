@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040337742217644E0063960B /* SecretKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040337732217644E0063960B /* SecretKeys.swift */; };
 		04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6897E220DF4DC0081355C /* AppDelegate.swift */; };
 		04C68986220DF4DE0081355C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C68985220DF4DE0081355C /* Assets.xcassets */; };
 		04C68989220DF4DE0081355C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C68987220DF4DE0081355C /* LaunchScreen.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040337732217644E0063960B /* SecretKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKeys.swift; sourceTree = "<group>"; };
 		04C6897B220DF4DC0081355C /* 9squareApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9squareApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C6897E220DF4DC0081355C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04C68985220DF4DE0081355C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				0586C23B22137E840095C3AF /* fourSqExplore.swift */,
 				0586C247221384A40095C3AF /* ExploreAPIClient.swift */,
 				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
+				040337732217644E0063960B /* SecretKeys.swift */,
 				0586C23E22137EE70095C3AF /* fourSqSearch.swift */,
 				0586C245221384450095C3AF /* SearchAPIClient.swift */,
 				05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */,
@@ -229,6 +232,7 @@
 				0586C23C22137E840095C3AF /* fourSqExplore.swift in Sources */,
 				04D66EB42215FEAE00731E15 /* SearchCollectionViewCell.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
+				040337742217644E0063960B /* SecretKeys.swift in Sources */,
 				A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
