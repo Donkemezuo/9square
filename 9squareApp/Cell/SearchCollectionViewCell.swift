@@ -19,6 +19,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     public lazy var nameLabel: UILabel = {
         let restuarantName = UILabel()
+            restuarantName.numberOfLines = 0
             restuarantName.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         return restuarantName
         
@@ -26,6 +27,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     public lazy var addressLabel: UILabel = {
         let restuarantAddress = UILabel()
+            restuarantAddress.numberOfLines = 0
             restuarantAddress.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         return restuarantAddress
     }()
@@ -53,7 +55,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
         imageView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
-        imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4).isActive = true
+        imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
         
         
         nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
