@@ -17,18 +17,12 @@ class MainViewController: UIViewController {
     let mainSearchView = SearchView()
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
-    private var imageLinksArray = [String]()
     private var venues = [VenueStruct]()
-//    {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.mainSearchView.collectionView.reloadData()
-//            }
-//        }
-//    }
+    private var searchResults = [VenueStruct]()
+    private var isSearching = false
     
-    fileprivate func getVenues() {
-        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: "sushi") { (appError, venues) in
+    fileprivate func getVenues(keyword: String) {
+        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
@@ -36,6 +30,18 @@ class MainViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.mainSearchView.collectionView.reloadData()
                 }
+                self.addAnnotations()
+            }
+        }
+    }
+    
+    fileprivate func addAnnotations() {
+        let annotation = MKPointAnnotation()
+        for venue in venues {
+            if let lat = venue.location.lat, let lon = venue.location.lng {
+                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                annotation.title = venue.name
+                mainSearchView.mapView.addAnnotation(annotation)
             }
         }
     }
@@ -44,12 +50,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         title = "9Square"
         view.addSubview(mainSearchView)
-        getVenues()
+        getVenues(keyword: "thai")
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
         mainSearchView.collectionView.delegate = self
         mainSearchView.collectionView.dataSource = self
         locationManager.delegate = self
         checkLocationServices()
+        mainSearchView.search.delegate = self
     }
     
     func checkLocationServices(){
@@ -129,5 +136,17 @@ extension MainViewController: CLLocationManagerDelegate {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResults = venues
+        searchResults = venues.filter{ $0.name.lowercased().contains(searchText.lowercased()) } //TODO: implement search by address name
+        //isSearching = true
     }
 }
