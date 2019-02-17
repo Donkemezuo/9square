@@ -41,11 +41,19 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func userDefaultsSearchTerm() -> String {
+        if let searchTermFromUserDefaults = UserDefaults.standard.object(forKey: UserDefaultsKey.searchTerm) as? String {
+            return searchTermFromUserDefaults
+        } else {
+            return "sushi"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "9Square"
         view.addSubview(mainSearchView)
-        getVenues(keyword: "thai")
+        getVenues(keyword: userDefaultsSearchTerm())
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
         mainSearchView.collectionView.delegate = self
@@ -146,5 +154,6 @@ extension MainViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         guard let searchText = searchBar.text else { return }
         getVenues(keyword: searchText)
+        UserDefaults.standard.set(searchText, forKey: UserDefaultsKey.searchTerm)
     }
 }
