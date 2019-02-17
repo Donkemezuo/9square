@@ -32,6 +32,7 @@
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
 		A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B25221751BD009E2A14 /* ImageAPIClient.swift */; };
 		A5849B28221A1EE3009E2A14 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B27221A1EE3009E2A14 /* UIViewController+Alerts.swift */; };
+		A5849B2A221A26E5009E2A14 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B29221A26E5009E2A14 /* UserDefaultsKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		A5849AF5221625E3009E2A14 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = 9squareApp/Models/NetworkServices/ImageHelper.swift; sourceTree = SOURCE_ROOT; };
 		A5849B25221751BD009E2A14 /* ImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClient.swift; sourceTree = "<group>"; };
 		A5849B27221A1EE3009E2A14 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Alerts.swift"; path = "9squareApp/UIViewController+Alerts.swift"; sourceTree = SOURCE_ROOT; };
+		A5849B29221A26E5009E2A14 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		04C6897D220DF4DC0081355C /* 9squareApp */ = {
 			isa = PBXGroup;
 			children = (
+				A5849B29221A26E5009E2A14 /* UserDefaultsKey.swift */,
 				05B7E10422176D6400B299F7 /* Date Helpers */,
 				05B7E0FD2217696600B299F7 /* File Manager Helpers */,
 				04D66EB22215FE9300731E15 /* Cell */,
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5849B2A221A26E5009E2A14 /* UserDefaultsKey.swift in Sources */,
 				04D66EB62216259700731E15 /* DetailViewController.swift in Sources */,
 				04C68993220E21750081355C /* MainView.swift in Sources */,
 				05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */,
