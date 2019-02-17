@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SearchView: UIView {
+class MainView: UIView {
  
 
     public lazy var search: UISearchBar = {
