@@ -13,7 +13,6 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-    
     let mainSearchView = MainView()
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.626994, longitude: -74.009727)
@@ -84,6 +83,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
         let venueToSet = venues[indexPath.row]
+        collectionViewcell.activityIndicator.startAnimating()
         collectionViewcell.nameLabel.text = venueToSet.name
         collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " \n" +  venueToSet.location.formattedAddress[1]
         ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
@@ -104,6 +104,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                         }
                     })
                 }
+                collectionViewcell.activityIndicator.stopAnimating()
             }
         }
         return collectionViewcell
