@@ -10,6 +10,13 @@ import UIKit
 
 class SearchCollectionViewCell: UICollectionViewCell {
     
+    public lazy var activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView()
+        ai.style = .gray
+        ai.hidesWhenStopped = true
+        return ai
+    }()
+    
     public lazy var imageView: UIImageView = {
         let restuarantImageView = UIImageView()
             restuarantImageView.image = UIImage.init(named: "food")
@@ -49,9 +56,13 @@ class SearchCollectionViewCell: UICollectionViewCell {
         addSubview(imageView)
         addSubview(addressLabel)
         addSubview(nameLabel)
+        addSubview(activityIndicator)
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints =  false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
         imageView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
@@ -70,7 +81,8 @@ class SearchCollectionViewCell: UICollectionViewCell {
         addressLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         
-        
+        activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 0).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 0).isActive = true
         
     }
 }
