@@ -13,26 +13,18 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-    
-    let mainSearchView = SearchView()
+    let mainSearchView = MainView()
     private let locationManager = CLLocationManager()
-    private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
-    private var imageLinksArray = [String]()
+    private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.626994, longitude: -74.009727)
     private var venues = [VenueStruct]()
-//    {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.mainSearchView.collectionView.reloadData()
-//            }
-//        }
-//    }
     
-    fileprivate func getVenues() {
-        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: "sushi") { (appError, venues) in
+    fileprivate func getVenues(keyword: String) {
+        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
                 self.venues = venues
+                self.addAnnotations()
                 DispatchQueue.main.async {
                     self.mainSearchView.collectionView.reloadData()
                 }
@@ -40,16 +32,39 @@ class MainViewController: UIViewController {
         }
     }
     
+    fileprivate func addAnnotations() {
+        let annotation = MKPointAnnotation()
+        for venue in venues {
+            annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat ?? 0.0, longitude: venue.location.lng ?? 0.0)
+            annotation.title = venue.name
+            mainSearchView.mapView.addAnnotation(annotation)
+        }
+    }
+    
+    private func userDefaultsSearchTerm() -> String {
+        if let searchTermFromUserDefaults = UserDefaults.standard.object(forKey: UserDefaultsKey.searchTerm) as? String {
+            return searchTermFromUserDefaults
+        } else {
+            return "sushi"
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "9Square"
         view.addSubview(mainSearchView)
-        getVenues()
+        getVenues(keyword: userDefaultsSearchTerm())
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
         mainSearchView.collectionView.delegate = self
         mainSearchView.collectionView.dataSource = self
         locationManager.delegate = self
         checkLocationServices()
+        mainSearchView.search.delegate = self
+    }
+    
+    @objc private func LocateMeButtonPressed() {
+        print("locateMe button pressed")
     }
     
     func checkLocationServices(){
@@ -76,8 +91,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
         let venueToSet = venues[indexPath.row]
+        collectionViewcell.activityIndicator.startAnimating()
         collectionViewcell.nameLabel.text = venueToSet.name
-        collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " " +  venueToSet.location.formattedAddress[1]
+        collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " \n" +  venueToSet.location.formattedAddress[1]
         ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
             if let appError = appError {
                 print("imageClient - \(appError)")
@@ -96,6 +112,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                         }
                     })
                 }
+                collectionViewcell.activityIndicator.stopAnimating()
             }
         }
         return collectionViewcell
@@ -129,5 +146,14 @@ extension MainViewController: CLLocationManagerDelegate {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        guard let searchText = searchBar.text else { return }
+        getVenues(keyword: searchText)
+        UserDefaults.standard.set(searchText, forKey: UserDefaultsKey.searchTerm)
     }
 }
