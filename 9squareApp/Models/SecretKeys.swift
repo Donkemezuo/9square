@@ -18,6 +18,6 @@ final class SecretKeys {
     static let janeID = "CEMBAQNPTTKG1RRZCXLH3WLC3GJIKH35FA3MRZNW4UPRAM0P"
     static let janeSecret = "LWNE3MWJTPL2NXKRZOUWHIC1SC0TTF30ITRRHHHDI1ZCCAEB"
     
-    static let yazID = ""
-    static let yazSecret = ""
+    static let yazID = "VQEOJ4ZEKH4SKIQ25IOIJFOEEGP2WL4BW0MOILVLC0AGYYK2"
+    static let yazSecret = "AVRTZCP3KWNSPITJ3EZCHXT1BFLKCINYMZ14NZGU4JYVYD1M"
 }
