@@ -7,6 +7,7 @@ Features
  - Search for venues using name
  - Users are able to get searched "venues" around them using user's current location
  - Enable users access details about the venue like venue name, address etc .....
+ - Enable users to also see pictures about the venue
  - Users can also save venues to their saved venues collection to enable them revisit this venues if need be.
  
 Tools
