@@ -10,10 +10,16 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    var testArray = ["Hello", "this", "is", "a", "test"] 
-    
-   var favView = FavoriteView()
-    var favVenue = [FaveRestaurant]()
+    var testArray = ["Hello", "this", "is", "a", "test"]
+    var favView = FavoriteView()
+    var favVenue = [FaveRestaurant](){
+        didSet{
+            DispatchQueue.main.async {
+                self.favView.favTableView.reloadData()
+            }
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +35,14 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray.count
+        return favVenue.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let faveSelection = testArray[indexPath.row]
+        let faveSelection = favVenue[indexPath.row]
         let tvCell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
-        tvCell.textLabel?.text = faveSelection
-        //tvCell.detailTextLabel?.text = faveSelection
+        tvCell.textLabel?.text = "Looks like we made it"
+        tvCell.detailTextLabel?.text = faveSelection.description
         return tvCell
     }
     
