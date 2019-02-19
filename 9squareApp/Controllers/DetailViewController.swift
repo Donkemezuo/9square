@@ -59,13 +59,10 @@ class DetailViewController: UIViewController {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
                 let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.restuarant.name, favoritedAt: savingDate, imageData: favoritedVenueImage, description: (self.restuarant.categories.first?.name)!, venue: self.restuarant.location.modifiedAddress)
                 
-                RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave)
+    RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave)
                 
-            
-//                self.present(UIAlertController.init(title: "test", message: "soketing", preferredStyle: .alert ), animated: true, completion: nil)
-//
          self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
-//                print("Successfully saved venue to \(collectionName)")
+
             }
             
         }
