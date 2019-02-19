@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SearchView: UIView {
+class MainView: UIView {
  
 
     public lazy var search: UISearchBar = {
@@ -31,9 +31,9 @@ class SearchView: UIView {
         
             let cellLayout = UICollectionViewFlowLayout()
                 cellLayout.scrollDirection = .horizontal
-                cellLayout.sectionInset = UIEdgeInsets.init(top: 20, left: 10, bottom: 20, right: 10)
+                cellLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 5)
         
-                cellLayout.itemSize = CGSize.init(width: 300, height: 300)
+                cellLayout.itemSize = CGSize.init(width: 225, height: 350)
             let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: cellLayout)
                 collectionView.backgroundColor = UIColor.gray
                 collectionView.layer.cornerRadius = 5.0
@@ -67,15 +67,15 @@ class SearchView: UIView {
         search.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         search.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
        
-        mapView.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 5).isActive = true
-        mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
-        mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
-        mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
+        mapView.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 0).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        mapView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35).isActive = true
         
-        collectionView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 5).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true 
+        collectionView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 0).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true 
         
     }
     

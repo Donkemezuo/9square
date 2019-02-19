@@ -13,20 +13,58 @@ import CoreLocation
 
 class MainViewController: UIViewController {
     
-     let dummyArray = ["Yap","Kev","DM","Micheal","Greg","KK","Uber","Late","Wild","After","BB","Cutie","Company","Lord","We","Wining","Get","Help","When","You","Can","Else","You","Will","Die","Yes","I","Said","It","Kill","Mo","eee","rrr","yyy","rrr","qqq","uuu","ooo","mmm","sss","zzz","nnn","lll","iii"]
-    
-    let mainSearchView = SearchView()
+    let mainSearchView = MainView()
     private let locationManager = CLLocationManager()
-    private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.743147, longitude: -73.9419)
+    private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.626994, longitude: -74.009727)
+    private var venues = [VenueStruct]()
+    
+    fileprivate func getVenues(keyword: String) {
+        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
+            if let appError = appError {
+                print("getVenue - \(appError)")
+            } else if let venues = venues {
+                self.venues = venues
+                self.addAnnotations()
+                DispatchQueue.main.async {
+                    self.mainSearchView.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    fileprivate func addAnnotations() {
+        let annotation = MKPointAnnotation()
+        for venue in venues {
+            annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat ?? 0.0, longitude: venue.location.lng ?? 0.0)
+            annotation.title = venue.name
+            mainSearchView.mapView.addAnnotation(annotation)
+        }
+    }
+    
+    private func userDefaultsSearchTerm() -> String {
+        if let searchTermFromUserDefaults = UserDefaults.standard.object(forKey: UserDefaultsKey.searchTerm) as? String {
+            return searchTermFromUserDefaults
+        } else {
+            return "sushi"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "9Square"
         view.addSubview(mainSearchView)
+        getVenues(keyword: userDefaultsSearchTerm())
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
         mainSearchView.collectionView.delegate = self
         mainSearchView.collectionView.dataSource = self
         locationManager.delegate = self
         checkLocationServices()
+        mainSearchView.search.delegate = self
+    }
+    
+    @objc private func LocateMeButtonPressed() {
+        print("locateMe button pressed")
     }
     
     func checkLocationServices(){
@@ -47,15 +85,45 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyArray.count
+        return venues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell()}
-        let restuarant = dummyArray[indexPath.row]
-        collectionViewcell.nameLabel.text = restuarant
+        guard let collectionViewcell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
+        let venueToSet = venues[indexPath.row]
+        collectionViewcell.activityIndicator.startAnimating()
+        collectionViewcell.nameLabel.text = venueToSet.name
+        collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " \n" +  venueToSet.location.formattedAddress[1]
+        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
+            if let appError = appError {
+                print("imageClient - \(appError)")
+            } else if let imageLink = imageLink {
+                self.venues[indexPath.row].imageLink = imageLink
+                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
+                    DispatchQueue.main.async {
+                        collectionViewcell.imageView.image = imageIsInCache
+                    }
+                } else {
+                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
+                        if let appError = appError {
+                            print("imageHelper error - \(appError)")
+                        } else if let image = image {
+                            collectionViewcell.imageView.image = image
+                        }
+                    })
+                }
+                collectionViewcell.activityIndicator.stopAnimating()
+            }
+        }
         return collectionViewcell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let venue = venues[indexPath.row]
+        let destination = DetailViewController(restuarant: venue)
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
     
     
 
@@ -78,5 +146,14 @@ extension MainViewController: CLLocationManagerDelegate {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        guard let searchText = searchBar.text else { return }
+        getVenues(keyword: searchText)
+        UserDefaults.standard.set(searchText, forKey: UserDefaultsKey.searchTerm)
     }
 }
