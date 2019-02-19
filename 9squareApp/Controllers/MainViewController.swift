@@ -36,6 +36,7 @@ class MainViewController: UIViewController {
         locationManager.delegate = self
         mainSearchView.search.delegate = self
         checkLocationServices()
+        setupKeyboardToolbar()
     }
     
     fileprivate func getVenues(keyword: String) {
@@ -87,6 +88,20 @@ class MainViewController: UIViewController {
             locationManager.startUpdatingLocation()
             mainSearchView.mapView.showsUserLocation = true
         }
+    }
+    
+    fileprivate func setupKeyboardToolbar() {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done
+            , target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        mainSearchView.search.inputAccessoryView = toolbar
+    }
+    
+    @objc private func doneButtonAction() {
+        self.view.endEditing(true)
     }
 }
 
