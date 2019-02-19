@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.626994, longitude: -74.009727)
     private var venues = [VenueStruct]()
+    private var annotations = [MKAnnotation]()
     
     fileprivate func getVenues(keyword: String) {
         SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
@@ -33,12 +34,15 @@ class MainViewController: UIViewController {
     }
     
     fileprivate func addAnnotations() {
-        let annotation = MKPointAnnotation()
+        mainSearchView.mapView.removeAnnotations(annotations)
+        annotations.removeAll()
         for venue in venues {
+            let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat ?? 0.0, longitude: venue.location.lng ?? 0.0)
             annotation.title = venue.name
-            mainSearchView.mapView.addAnnotation(annotation)
+            annotations.append(annotation)
         }
+        mainSearchView.mapView.showAnnotations(annotations, animated: true)
     }
     
     private func userDefaultsSearchTerm() -> String {
