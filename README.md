@@ -1,6 +1,4 @@
 # 9square
-A mobile App that enable users search for venues
-
 9Square is a user-friendly Mobile App that enables it's users search venues. 
 
 Features 
