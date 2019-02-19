@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     let detailView = DetailView()
+
     private var restuarant:VenueStruct!
     var tabBarButton = UIBarButtonItem()
 
@@ -19,10 +20,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(detailView)
         view.backgroundColor = .red
-        detailView.venueName.text = restuarant.name
-        detailView.venueDescription.text = restuarant.location.modifiedAddress
-        addVenue()
-        
+ 
         
         if let linkExists = restuarant.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
@@ -95,6 +93,8 @@ class DetailViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
     }
+    
+    
     
     
 
