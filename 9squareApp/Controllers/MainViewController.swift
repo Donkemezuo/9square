@@ -19,8 +19,12 @@ class MainViewController: UIViewController {
     private var venues = [VenueStruct]()
     private var annotations = [MKAnnotation]()
     
+    private var myCurrentRegion = MKCoordinateRegion()
+    
     fileprivate func getVenues(keyword: String) {
-        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
+        
+        
+        SearchAPIClient.getVenue(latitude: myCurrentRegion.center.latitude.description, longitude: myCurrentRegion.center.longitude.description, category: keyword) { (appError, venues) in
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
@@ -65,6 +69,8 @@ class MainViewController: UIViewController {
         locationManager.delegate = self
         checkLocationServices()
         mainSearchView.search.delegate = self
+        
+        //mainSearchView.mapView.showsUserLocation
     }
     
     @objc private func LocateMeButtonPressed() {
@@ -116,7 +122,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                         }
                     })
                 }
-                collectionViewcell.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    collectionViewcell.activityIndicator.stopAnimating()
+                }
             }
         }
         return collectionViewcell
@@ -137,18 +145,24 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            coordinateToSearch = mainSearchView.mapView.userLocation.coordinate
+//            guard let coordinateRegion = myCurrentRegion else {
+//                print("region coord nil")
+//                return
+//            }
+            coordinateToSearch = myCurrentRegion.center//mainSearchView.mapView.userLocation.coordinate
         }
-        let myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+        let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mainSearchView.mapView.setRegion(currentRegion, animated: true)
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var myCurrentRegion = MKCoordinateRegion()
+        myCurrentRegion = MKCoordinateRegion()
         if let currentLocation = locations.last {
             myCurrentRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            
         } else {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
+        
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
 }
