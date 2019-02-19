@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .red
         detailView.venueName.text = restuarant.name
         detailView.venueDescription.text = restuarant.location.modifiedAddress
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(favButtonSelected))
         
         if let linkExists = restuarant.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
@@ -42,6 +43,10 @@ class DetailViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
+    }
+    
+    @objc func favButtonSelected(){
+        
     }
     
     
