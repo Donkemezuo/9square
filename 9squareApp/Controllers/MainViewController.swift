@@ -19,18 +19,33 @@ class MainViewController: UIViewController {
     private var venues = [VenueStruct]()
     private var annotations = [MKAnnotation]()
     
-    private var myCurrentRegion = MKCoordinateRegion()
+    private var myCurrentRegion = MKCoordinateRegion() {
+        didSet {
+            getVenues(keyword: userDefaultsSearchTerm())
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "9Square"
+        view.addSubview(mainSearchView)
+        self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
+        mainSearchView.collectionView.delegate = self
+        mainSearchView.collectionView.dataSource = self
+        locationManager.delegate = self
+        mainSearchView.search.delegate = self
+        checkLocationServices()
+    }
     
     fileprivate func getVenues(keyword: String) {
-        
-        
         SearchAPIClient.getVenue(latitude: myCurrentRegion.center.latitude.description, longitude: myCurrentRegion.center.longitude.description, category: keyword) { (appError, venues) in
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
                 self.venues = venues
-                self.addAnnotations()
                 DispatchQueue.main.async {
+                    self.addAnnotations()
                     self.mainSearchView.collectionView.reloadData()
                 }
             }
@@ -57,24 +72,8 @@ class MainViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "9Square"
-        view.addSubview(mainSearchView)
-        getVenues(keyword: userDefaultsSearchTerm())
-        self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
-        mainSearchView.collectionView.delegate = self
-        mainSearchView.collectionView.dataSource = self
-        locationManager.delegate = self
-        checkLocationServices()
-        mainSearchView.search.delegate = self
-        
-        //mainSearchView.mapView.showsUserLocation
-    }
-    
     @objc private func LocateMeButtonPressed() {
-        print("locateMe button pressed")
+//        mainSearchView.mapView.showsUserLocation = true
     }
     
     func checkLocationServices(){
