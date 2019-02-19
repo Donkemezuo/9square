@@ -17,15 +17,36 @@ class MainViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var coordinateToSearch = CLLocationCoordinate2D(latitude: 40.626994, longitude: -74.009727)
     private var venues = [VenueStruct]()
+    private var annotations = [MKAnnotation]()
+    
+    private var myCurrentRegion = MKCoordinateRegion() {
+        didSet {
+            getVenues(keyword: userDefaultsSearchTerm())
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "9Square"
+        view.addSubview(mainSearchView)
+        self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
+        mainSearchView.collectionView.delegate = self
+        mainSearchView.collectionView.dataSource = self
+        locationManager.delegate = self
+        mainSearchView.search.delegate = self
+        checkLocationServices()
+        setupKeyboardToolbar()
+    }
     
     fileprivate func getVenues(keyword: String) {
-        SearchAPIClient.getVenue(latitude: coordinateToSearch.latitude.description, longitude: coordinateToSearch.longitude.description, category: keyword) { (appError, venues) in
+        SearchAPIClient.getVenue(latitude: myCurrentRegion.center.latitude.description, longitude: myCurrentRegion.center.longitude.description, category: keyword) { (appError, venues) in
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
                 self.venues = venues
-                self.addAnnotations()
                 DispatchQueue.main.async {
+                    self.addAnnotations()
                     self.mainSearchView.collectionView.reloadData()
                 }
             }
@@ -33,12 +54,15 @@ class MainViewController: UIViewController {
     }
     
     fileprivate func addAnnotations() {
-        let annotation = MKPointAnnotation()
+        mainSearchView.mapView.removeAnnotations(annotations)
+        annotations.removeAll()
         for venue in venues {
+            let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: venue.location.lat ?? 0.0, longitude: venue.location.lng ?? 0.0)
             annotation.title = venue.name
-            mainSearchView.mapView.addAnnotation(annotation)
+            annotations.append(annotation)
         }
+        mainSearchView.mapView.showAnnotations(annotations, animated: true)
     }
     
     private func userDefaultsSearchTerm() -> String {
@@ -49,22 +73,8 @@ class MainViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "9Square"
-        view.addSubview(mainSearchView)
-        getVenues(keyword: userDefaultsSearchTerm())
-        self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Locate Me", style: .plain, target: self, action: #selector(LocateMeButtonPressed))
-        mainSearchView.collectionView.delegate = self
-        mainSearchView.collectionView.dataSource = self
-        locationManager.delegate = self
-        checkLocationServices()
-        mainSearchView.search.delegate = self
-    }
-    
     @objc private func LocateMeButtonPressed() {
-        print("locateMe button pressed")
+//        mainSearchView.mapView.showsUserLocation = true
     }
     
     func checkLocationServices(){
@@ -78,6 +88,20 @@ class MainViewController: UIViewController {
             locationManager.startUpdatingLocation()
             mainSearchView.mapView.showsUserLocation = true
         }
+    }
+    
+    fileprivate func setupKeyboardToolbar() {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done
+            , target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        mainSearchView.search.inputAccessoryView = toolbar
+    }
+    
+    @objc private func doneButtonAction() {
+        self.view.endEditing(true)
     }
 }
 
@@ -112,7 +136,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                         }
                     })
                 }
-                collectionViewcell.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    collectionViewcell.activityIndicator.stopAnimating()
+                }
             }
         }
         return collectionViewcell
@@ -133,18 +159,24 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            coordinateToSearch = mainSearchView.mapView.userLocation.coordinate
+//            guard let coordinateRegion = myCurrentRegion else {
+//                print("region coord nil")
+//                return
+//            }
+            coordinateToSearch = myCurrentRegion.center//mainSearchView.mapView.userLocation.coordinate
         }
-        let myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+        let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mainSearchView.mapView.setRegion(currentRegion, animated: true)
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var myCurrentRegion = MKCoordinateRegion()
+        myCurrentRegion = MKCoordinateRegion()
         if let currentLocation = locations.last {
             myCurrentRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            
         } else {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
+        
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
 }

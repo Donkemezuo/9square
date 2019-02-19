@@ -21,8 +21,7 @@ class FavoriteViewController: UIViewController {
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         
-        
-       
+    
         
     }
     
