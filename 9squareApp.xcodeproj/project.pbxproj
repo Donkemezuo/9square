@@ -27,6 +27,7 @@
 		05B7E10122176BD100B299F7 /* FaveRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10022176BD100B299F7 /* FaveRestaurant.swift */; };
 		05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10222176CA600B299F7 /* Date+Extensions.swift */; };
 		05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10522176D8600B299F7 /* String + DateExtensions.swift */; };
+		913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F8415221C8D9E007D6426 /* FavoriteView.swift */; };
 		914DCBBD2216063C00800A25 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBBA2216063C00800A25 /* DetailView.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
@@ -57,6 +58,7 @@
 		05B7E10022176BD100B299F7 /* FaveRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaveRestaurant.swift; sourceTree = "<group>"; };
 		05B7E10222176CA600B299F7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		05B7E10522176D8600B299F7 /* String + DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + DateExtensions.swift"; sourceTree = "<group>"; };
+		913F8415221C8D9E007D6426 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		914DCBA5221388E000800A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914DCBBA2216063C00800A25 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Views/DetailView.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				914DCBBA2216063C00800A25 /* DetailView.swift */,
 				04C68992220E21750081355C /* MainView.swift */,
+				913F8415221C8D9E007D6426 /* FavoriteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				A5849B2A221A26E5009E2A14 /* UserDefaultsKey.swift in Sources */,
 				04D66EB62216259700731E15 /* DetailViewController.swift in Sources */,
 				04C68993220E21750081355C /* MainView.swift in Sources */,
+				913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */,
 				05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */,
 				05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */,
 				04C68991220E1EC60081355C /* FavoriteViewController.swift in Sources */,

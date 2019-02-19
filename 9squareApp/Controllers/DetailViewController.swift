@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     let detailView = DetailView()
-    private var restuarant:VenueStruct!
+    private var restuarant: VenueStruct!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .red
         detailView.venueName.text = restuarant.name
         detailView.venueDescription.text = restuarant.location.modifiedAddress
+
         
         if let linkExists = restuarant.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
@@ -43,6 +44,8 @@ class DetailViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
     }
+    
+    
     
     
 
