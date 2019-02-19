@@ -125,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				A5584D7E220E307C001C5763 /* MainViewController.swift */,
+				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
 				04C68990220E1EC60081355C /* FavoriteViewController.swift */,
 				04D66EB52216259700731E15 /* DetailViewController.swift */,
 			);
@@ -178,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				05B7E10222176CA600B299F7 /* Date+Extensions.swift */,
-				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
 				A5849B27221A1EE3009E2A14 /* UIViewController+Alerts.swift */,
 			);
 			path = "Date Helpers";
