@@ -17,14 +17,12 @@ class FavoriteView: UIView {
         return tv 
     }()
     
-    public lazy var favImage: UIImageView = {
-        var image = UIImageView(image: UIImage(named: "food"))
-        return image
-    }()
+  
     
     override init(frame: CGRect){
         super.init(frame: UIScreen.main.bounds)
         commonInit()
+        self.favTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteCell")
         
     }
     
@@ -47,9 +45,5 @@ class FavoriteView: UIView {
         favTableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
     
-    func setImageConstraints() {
-       addSubview(favImage)
-        favImage.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
+   
 }
