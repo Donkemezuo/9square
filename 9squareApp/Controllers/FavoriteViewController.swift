@@ -12,7 +12,7 @@ class FavoriteViewController: UIViewController {
     
     var testArray = ["Hello", "this", "is", "a", "test"]
     var favView = FavoriteView()
-    var favVenue = [FaveRestaurant](){
+    var favVenue = RestaurantDataManager.fetchFavoriteFromDocumentsDirectory(){
         didSet{
             DispatchQueue.main.async {
                 self.favView.favTableView.reloadData()
@@ -45,6 +45,7 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         tvCell.textLabel?.text = faveSelection.restaurantName
         tvCell.detailTextLabel?.text = faveSelection.description
         tvCell.backgroundColor = #colorLiteral(red: 0.2644796371, green: 0.4001772404, blue: 0.9960227609, alpha: 1)
+        
         return tvCell
     }
     
