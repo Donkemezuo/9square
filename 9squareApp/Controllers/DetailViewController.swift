@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
     
     let detailView = DetailView()
 
-    private var venue:VenueStruct!
+    private var venue: VenueStruct!
     var tabBarButton = UIBarButtonItem()
 
     
@@ -85,12 +85,12 @@ class DetailViewController: UIViewController {
             guard let collectionName = alertController.textFields?.first?.text else {return}
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, description: (self.venue.categories.first?.name)!, venue: self.venue.location.modifiedAddress)
-                
-    RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave)
-                
-         self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
-
+                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: nil, description: (self.venue.categories.first?.name)!, venue: self.venue.location.modifiedAddress)
+                if  RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave).success {
+                    self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
+                } else {
+                    print("venue not successfully saved")
+                }
             }
             
         }
