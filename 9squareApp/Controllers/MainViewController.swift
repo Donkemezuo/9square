@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(DataPersistenceManager.documentsDirectory())
         title = "9Square"
         view.addSubview(mainSearchView)
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
@@ -45,6 +46,7 @@ class MainViewController: UIViewController {
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
+                print("mainVC - made a network call for \(keyword)")
                 self.venues = venues
                 DispatchQueue.main.async {
                     self.addAnnotations()
@@ -75,8 +77,7 @@ class MainViewController: UIViewController {
     }
     
     @objc private func LocateMeButtonPressed() {
-        mainSearchView.mapView.setCenter(myCurrentRegion.center
-            , animated: true)
+        mainSearchView.mapView.setCenter(myCurrentRegion.center, animated: true)
     }
     
     func checkLocationServices(){
@@ -120,31 +121,30 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         collectionViewcell.activityIndicator.startAnimating()
         collectionViewcell.nameLabel.text = venueToSet.name
         collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " \n" +  venueToSet.location.formattedAddress[1]
-//        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
-//            if let appError = appError {
-//                print("imageClient - \(appError)")
-//            } else if let imageLink = imageLink {
-//                self.venues[indexPath.row].imageLink = imageLink
-//                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
-//                    DispatchQueue.main.async {
-//                        print("got immage from cache")
-//                        collectionViewcell.imageView.image = imageIsInCache
-//                    }
-//                } else {
-//                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
-//                        if let appError = appError {
-//                            print("imageHelper error - \(appError)")
-//                        } else if let image = image {
-//                            collectionViewcell.imageView.image = image
-//                            print("got immage from network")
-//                        }
-//                    })
-//                }
-//                DispatchQueue.main.async {
-//                    collectionViewcell.activityIndicator.stopAnimating()
-//                }
-//            }
-//        }
+        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
+            if let appError = appError {
+                print("imageClient - \(appError)")
+            } else if let imageLink = imageLink {
+                self.venues[indexPath.row].imageLink = imageLink
+                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
+                    DispatchQueue.main.async {
+                        collectionViewcell.imageView.image = imageIsInCache
+                    }
+                } else {
+                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
+                        if let appError = appError {
+                            print("imageHelper error - \(appError)")
+                        } else if let image = image {
+                            collectionViewcell.imageView.image = image
+                            print("mainVC - got image from network")
+                        }
+                    })
+                }
+                DispatchQueue.main.async {
+                    collectionViewcell.activityIndicator.stopAnimating()
+                }
+            }
+        }
         return collectionViewcell
     }
     
@@ -153,10 +153,6 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let destination = DetailViewController(restuarant: venue)
         self.navigationController?.pushViewController(destination, animated: true)
     }
-    
-    
-    
-
 }
 
 
@@ -180,41 +176,33 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     
-    
-//    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-//        if annotation is MKUserLocation { return nil }
-//
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "") as? MKPinAnnotationView
-//        if annotationView == nil {
-//            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Callouts")
-//            annotationView?.canShowCallout = true
-//            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
-//        } else {
-//            annotationView?.annotation = annotation
-//        }
-//
-//        return annotationView
-//    }
-//
-//    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        let venue = venues[0]
-//        let destination = DetailViewController(restuarant: venue)
-//        self.navigationController?.pushViewController(destination, animated: true)
-//    }
 }
 
 extension MainViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotationClicked = view.annotation else {
-            print("annotation is nil")
-            return
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Callouts") as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "Callouts")
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
+        } else {
+            annotationView?.annotation = annotation
         }
-        if let venueName = annotationClicked.title, let venue = (venues.filter{ $0.name == venueName}).first {
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let calloutClicked = view.annotation else {
+            fatalError("callout is nil")
+        }
+        if let venueName = calloutClicked.title, let venue = (venues.filter{ $0.name == venueName}).first {
             let destination = DetailViewController(restuarant: venue)
             self.navigationController?.pushViewController(destination, animated: true)
         }
-        mapView.deselectAnnotation(annotationClicked, animated: true)
     }
+
 }
 
 extension MainViewController: UISearchBarDelegate {

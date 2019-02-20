@@ -10,6 +10,13 @@ import UIKit
 
 class DetailView: UIView {
     
+    public lazy var activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView()
+        ai.style = .gray
+        ai.hidesWhenStopped = true
+        return ai
+    }()
+    
     public lazy var venueImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "background_1"))
         image.contentMode = .scaleToFill
@@ -60,9 +67,11 @@ class DetailView: UIView {
         addSubview(venueImage)
         addSubview(venueName)
         addSubview(venueDescription)
+        addSubview(activityIndicator)
         venueImage.translatesAutoresizingMaskIntoConstraints = false
         venueName.translatesAutoresizingMaskIntoConstraints = false
         venueDescription.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         venueImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         venueImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -400).isActive = true
@@ -78,6 +87,9 @@ class DetailView: UIView {
         venueDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         venueDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
         venueDescription.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        
+        activityIndicator.centerYAnchor.constraint(equalTo: venueImage.centerYAnchor, constant: 0).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: venueImage.centerXAnchor, constant: 0).isActive = true
     }
     
     
