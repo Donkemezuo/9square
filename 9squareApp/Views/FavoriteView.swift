@@ -22,7 +22,7 @@ class FavoriteView: UIView {
     override init(frame: CGRect){
         super.init(frame: UIScreen.main.bounds)
         commonInit()
-        self.favTableView.register(TableViewCell.self, forCellReuseIdentifier: "favoriteCell")
+        self.favTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteCell")
         
     }
     

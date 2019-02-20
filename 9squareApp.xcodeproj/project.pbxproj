@@ -29,7 +29,7 @@
 		05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10522176D8600B299F7 /* String + DateExtensions.swift */; };
 		913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F8415221C8D9E007D6426 /* FavoriteView.swift */; };
 		914DCBBD2216063C00800A25 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBBA2216063C00800A25 /* DetailView.swift */; };
-		91A8506F221DE0FA00C0E4AB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A8506E221DE0FA00C0E4AB /* TableViewCell.swift */; };
+		91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
 		A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B25221751BD009E2A14 /* ImageAPIClient.swift */; };
@@ -62,7 +62,7 @@
 		913F8415221C8D9E007D6426 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		914DCBA5221388E000800A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914DCBBA2216063C00800A25 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Views/DetailView.swift; sourceTree = "<group>"; };
-		91A8506E221DE0FA00C0E4AB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5849AF5221625E3009E2A14 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = 9squareApp/Models/NetworkServices/ImageHelper.swift; sourceTree = SOURCE_ROOT; };
 		A5849B25221751BD009E2A14 /* ImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClient.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				04D66EB32215FEAE00731E15 /* SearchCollectionViewCell.swift */,
-				91A8506E221DE0FA00C0E4AB /* TableViewCell.swift */,
+				91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				0586C241221383A30095C3AF /* AppError.swift in Sources */,
 				0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */,
 				05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */,
-				91A8506F221DE0FA00C0E4AB /* TableViewCell.swift in Sources */,
+				91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */,
 				0586C23F22137EE70095C3AF /* fourSqSearch.swift in Sources */,
 				0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */,
 				A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */,

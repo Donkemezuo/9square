@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  FavoriteTableViewCell.swift
 //  9squareApp
 //
 //  Created by Yaz Burrell on 2/20/19.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class FavoriteTableViewCell: UITableViewCell {
     
     public lazy var favImage: UIImageView = {
         var image = UIImageView(image: UIImage(named: "food"))
-        
+        //image.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+        image.contentMode = .scaleAspectFit
         return image
         
     }()
@@ -20,19 +21,28 @@ class TableViewCell: UITableViewCell {
     public lazy var favLabel: UILabel = {
         var label = UILabel()
         label.text = "Fave label"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    public lazy var addressLabel: UILabel = {
+        var label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = .black
+        
         return label
     }()
     
     public lazy var view: UIView = {
         var view = UIView()
-        
         return view
     }()
     
     func setConstraints() {
         addSubview(view)
+        view.addSubview(addressLabel)
         view.addSubview(favImage)
         view.addSubview(favLabel)
         
@@ -46,15 +56,22 @@ class TableViewCell: UITableViewCell {
         view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
        
-        favImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        favImage.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        favImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        favImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -260).isActive = true
         favImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        favImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        favImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
-        favLabel.topAnchor.constraint(equalTo: view.topAnchor,constant: 100).isActive = true
-        favLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 250).isActive = true
+        favLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10).isActive = true
+        favLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
         favLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        favLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        favLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        
+        addressLabel.translatesAutoresizingMaskIntoConstraints = false
+        addressLabel.topAnchor.constraint(equalTo: favLabel.bottomAnchor, constant: -50).isActive = true
+        addressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
+        addressLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        addressLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        
         
        
         

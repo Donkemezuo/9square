@@ -12,7 +12,7 @@ final class ImageAPIClient {
     static func getImages(venueID: String, completionHandler: @escaping ((AppError?, String?) -> Void)) {
         //TODO: interpolate current date
 
-        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=\(SecretKeys.genesisID)&client_secret=\(SecretKeys.genesisSecret)&v=20190215"
+        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=\(SecretKeys.yazID2)&client_secret=\(SecretKeys.yazSecret2)&v=20190215"
         
         NetworkHelper.shared.performDataTask(endpointURLString: URL, httpMethod: "GET", httpBody: nil) { (appError, data) in
             if let error = appError {
