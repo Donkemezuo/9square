@@ -13,6 +13,7 @@ struct FaveRestaurant: Codable {
     let restaurantName: String
     let favoritedAt: String
     let imageData: Data?
+    let tipOne: String?
     let description: String
     let venue: String
     
