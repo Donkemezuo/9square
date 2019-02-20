@@ -180,20 +180,25 @@ extension MainViewController: CLLocationManagerDelegate {
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else { return nil }
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
         
-        let identifier = "Annotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "") as? MKPinAnnotationView
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Callouts")
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
         } else {
-            annotationView!.annotation = annotation
+            annotationView?.annotation = annotation
         }
         
         return annotationView
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let venue = venues[0]
+        let destination = DetailViewController(restuarant: venue)
+        self.navigationController?.pushViewController(destination, animated: true)
     }
 }
 
