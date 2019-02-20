@@ -83,9 +83,13 @@ class DetailViewController: UIViewController {
             //this is when they press submit
             let savingDate = Date.getISOTimestamp()
             guard let collectionName = alertController.textFields?.first?.text else {return}
+          let tip = self.detailView.venueTip.text
+           
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: nil, description: (self.venue.categories.first?.name)!, venue: self.venue.location.modifiedAddress)
+                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: tip ?? "", description: (self.venue.categories.first?.name)!, venue: self.venue.location.modifiedAddress)
+                
+            
                 if  RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave).success {
                     self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
                 } else {

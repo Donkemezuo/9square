@@ -12,7 +12,8 @@ class FavoriteViewController: UIViewController {
     
     var testArray = ["Hello", "this", "is", "a", "test"]
     var favView = FavoriteView()
-    var favVenue = [FaveRestaurant](){
+    var favVenue = [FaveRestaurant]()
+    {
         didSet{
             DispatchQueue.main.async {
                 self.favView.favTableView.reloadData()
