@@ -35,6 +35,7 @@ class MainViewController: UIViewController {
         mainSearchView.collectionView.dataSource = self
         locationManager.delegate = self
         mainSearchView.search.delegate = self
+        mainSearchView.mapView.delegate = self
         checkLocationServices()
         setupKeyboardToolbar()
     }
@@ -74,7 +75,8 @@ class MainViewController: UIViewController {
     }
     
     @objc private func LocateMeButtonPressed() {
-//        mainSearchView.mapView.showsUserLocation = true
+        mainSearchView.mapView.setCenter(myCurrentRegion.center
+            , animated: true)
     }
     
     func checkLocationServices(){
@@ -159,11 +161,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-//            guard let coordinateRegion = myCurrentRegion else {
-//                print("region coord nil")
-//                return
-//            }
-            coordinateToSearch = myCurrentRegion.center//mainSearchView.mapView.userLocation.coordinate
+            coordinateToSearch = myCurrentRegion.center
         }
         let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mainSearchView.mapView.setRegion(currentRegion, animated: true)
@@ -176,8 +174,44 @@ extension MainViewController: CLLocationManagerDelegate {
         } else {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
-        
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
+    }
+    
+    
+    
+//    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+//        if annotation is MKUserLocation { return nil }
+//
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "") as? MKPinAnnotationView
+//        if annotationView == nil {
+//            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Callouts")
+//            annotationView?.canShowCallout = true
+//            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//        return annotationView
+//    }
+//
+//    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//        let venue = venues[0]
+//        let destination = DetailViewController(restuarant: venue)
+//        self.navigationController?.pushViewController(destination, animated: true)
+//    }
+}
+
+extension MainViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotationClicked = view.annotation else {
+            print("annotation is nil")
+            return
+        }
+        if let venueName = annotationClicked.title, let venue = (venues.filter{ $0.name == venueName}).first {
+            let destination = DetailViewController(restuarant: venue)
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+        mapView.deselectAnnotation(annotationClicked, animated: true)
     }
 }
 
@@ -189,3 +223,5 @@ extension MainViewController: UISearchBarDelegate {
         UserDefaults.standard.set(searchText, forKey: UserDefaultsKey.searchTerm)
     }
 }
+
+
