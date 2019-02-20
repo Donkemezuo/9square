@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
     
     let detailView = DetailView()
 
-    private var venue:VenueStruct!
+    private var venue: VenueStruct!
     var tabBarButton = UIBarButtonItem()
 
     
