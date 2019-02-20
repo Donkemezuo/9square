@@ -75,6 +75,8 @@ class DetailView: UIView {
         venueDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         venueDescription.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
+    
+    
 
 
 
