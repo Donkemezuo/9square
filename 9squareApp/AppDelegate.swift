@@ -16,17 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         let mainVC = MainViewController()
         let favoriteVC = FavoriteViewController()
+        favoriteVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorites"), tag: 1)
         let mainVCNav = UINavigationController.init(rootViewController: mainVC)
+        mainVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchIcon"), tag: 0)
         let tabBar = UITabBarController()
         tabBar.viewControllers = [mainVCNav,favoriteVC]
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = tabBar
-        
-        mainVCNav.title = "Search"
-        favoriteVC.title = "Favorites"
-    
-        
         return true
     }
 

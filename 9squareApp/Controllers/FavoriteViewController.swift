@@ -27,7 +27,7 @@ class FavoriteViewController: UIViewController {
         self.view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
-        
+        self.favView.favTableView.delegate = self
     }
     
 }
@@ -46,6 +46,11 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         tvCell.detailTextLabel?.text = faveSelection.description
         tvCell.backgroundColor = #colorLiteral(red: 0.2644796371, green: 0.4001772404, blue: 0.9960227609, alpha: 1)
         return tvCell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "This is a header section"
     }
     
    

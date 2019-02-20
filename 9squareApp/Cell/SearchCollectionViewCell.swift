@@ -27,7 +27,11 @@ class SearchCollectionViewCell: UICollectionViewCell {
     public lazy var nameLabel: UILabel = {
         let restuarantName = UILabel()
             restuarantName.numberOfLines = 0
-            restuarantName.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+        restuarantName.backgroundColor = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
+         restuarantName.textAlignment = .center
+        restuarantName.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+        restuarantName.font = UIFont(name: "Copperplate-Bold", size: 16)
+        restuarantName.textColor = .white 
         return restuarantName
         
     }()
@@ -35,7 +39,11 @@ class SearchCollectionViewCell: UICollectionViewCell {
     public lazy var addressLabel: UILabel = {
         let restuarantAddress = UILabel()
             restuarantAddress.numberOfLines = 0
-            restuarantAddress.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+            restuarantAddress.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+        restuarantAddress.textAlignment = .center
+        //restuarantAddress.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
+        restuarantAddress.textColor = .white
+        restuarantAddress.font = UIFont(name: "Copperplate-Bold", size: 16)
         return restuarantAddress
     }()
     
