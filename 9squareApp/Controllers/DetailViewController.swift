@@ -16,6 +16,46 @@ class DetailViewController: UIViewController {
     var tabBarButton = UIBarButtonItem()
 
     
+    fileprivate func getVenueImage() {
+        if let linkExists = venue.imageLink {
+            if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
+                detailView.venueImage.image = imageIsInCache
+                detailView.activityIndicator.stopAnimating()
+            } else {
+                ImageHelper.fetchImageFromNetwork(urlString: linkExists) { (appError, image) in
+                    if let appError = appError {
+                        print("imageHelper in detail vc error = \(appError)")
+                    } else if let image = image {
+                        self.detailView.venueImage.image = image
+                        self.detailView.activityIndicator.stopAnimating()
+                        print("Detail VC made network call for image")
+                    }
+                }
+            }
+        } else {//get the link
+            ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
+                if let appError = appError {
+                    print("detailVC imageAPIClient error = \(appError)")
+                } else if let link = link {
+                    if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: link) {
+                        self.detailView.venueImage.image = imageIsInCache
+                        self.detailView.activityIndicator.stopAnimating()
+                    } else {
+                        ImageHelper.fetchImageFromNetwork(urlString: link) { (appError, image) in
+                            if let appError = appError {
+                                print("imageHelper in detail vc error = \(appError)")
+                            } else if let image = image {
+                                self.detailView.venueImage.image = image
+                                self.detailView.activityIndicator.stopAnimating()
+                                print("Detail VC made network call for image bc link wasn't available")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
@@ -26,39 +66,7 @@ class DetailViewController: UIViewController {
         
 
         addVenue()
-        if let linkExists = venue.imageLink {
-            if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
-                detailView.venueImage.image = imageIsInCache
-            } else {
-                ImageHelper.fetchImageFromNetwork(urlString: linkExists) { (appError, image) in
-                    if let appError = appError {
-                        print("imageHelper in detail vc error = \(appError)")
-                    } else if let image = image {
-                        self.detailView.venueImage.image = image
-                        print("Detail VC made network call for image")
-                    }
-                }
-            }
-        } else {//get the link 
-            ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
-                if let appError = appError {
-                    print("detailVC imageAPIClient error = \(appError)")
-                } else if let link = link {
-                    if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: link) {
-                        self.detailView.venueImage.image = imageIsInCache
-                    } else {
-                        ImageHelper.fetchImageFromNetwork(urlString: link) { (appError, image) in
-                            if let appError = appError {
-                                print("imageHelper in detail vc error = \(appError)")
-                            } else if let image = image {
-                                self.detailView.venueImage.image = image
-                                print("Detail VC made network call for image")
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        getVenueImage()
     }
     
     
