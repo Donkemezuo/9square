@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
     
     let detailView = DetailView()
 
-    private var restuarant:VenueStruct!
+    private var venue:VenueStruct!
     var tabBarButton = UIBarButtonItem()
 
     
@@ -20,15 +20,13 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(detailView)
 
-       
-        detailView.venueName.text = restuarant.name
-        detailView.venueDescription.text = restuarant.location.formattedAddress[0] + "\n" + restuarant.location.formattedAddress[1]
-
+        detailView.venueName.text = venue.name
+        detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         
 
-            addVenue()
-        if let linkExists = restuarant.imageLink {
+        addVenue()
+        if let linkExists = venue.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
                 detailView.venueImage.image = imageIsInCache
             } else {
@@ -37,8 +35,26 @@ class DetailViewController: UIViewController {
                         print("imageHelper in detail vc error = \(appError)")
                     } else if let image = image {
                         self.detailView.venueImage.image = image
-
-                        
+                        print("Detail VC made network call for image")
+                    }
+                }
+            }
+        } else {//get the link 
+            ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
+                if let appError = appError {
+                    print("detailVC imageAPIClient error = \(appError)")
+                } else if let link = link {
+                    if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: link) {
+                        self.detailView.venueImage.image = imageIsInCache
+                    } else {
+                        ImageHelper.fetchImageFromNetwork(urlString: link) { (appError, image) in
+                            if let appError = appError {
+                                print("imageHelper in detail vc error = \(appError)")
+                            } else if let image = image {
+                                self.detailView.venueImage.image = image
+                                print("Detail VC made network call for image")
+                            }
+                        }
                     }
                 }
             }
@@ -61,7 +77,7 @@ class DetailViewController: UIViewController {
             guard let collectionName = alertController.textFields?.first?.text else {return}
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.restuarant.name, favoritedAt: savingDate, imageData: favoritedVenueImage, description: (self.restuarant.categories.first?.name)!, venue: self.restuarant.location.modifiedAddress)
+                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, description: (self.venue.categories.first?.name)!, venue: self.venue.location.modifiedAddress)
                 
     RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave)
                 
@@ -93,7 +109,7 @@ class DetailViewController: UIViewController {
     
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
-        self.restuarant = restuarant
+        self.venue = restuarant
     }
     
     required init?(coder aDecoder: NSCoder) {
