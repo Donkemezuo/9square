@@ -16,6 +16,7 @@ class FavoriteViewController: UIViewController {
         didSet{
             DispatchQueue.main.async {
                 self.favView.favTableView.reloadData()
+                
             }
         }
         
@@ -27,24 +28,27 @@ class FavoriteViewController: UIViewController {
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         
-    
-        
     }
     
 }
 
-extension FavoriteViewController: UITableViewDataSource {
+extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return favVenue.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let faveSelection = favVenue[indexPath.row]
-        let tvCell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
-        tvCell.textLabel?.text = "Looks like we made it"
+        let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
+        tvCell.textLabel?.text = faveSelection.restaurantName
         tvCell.detailTextLabel?.text = faveSelection.description
+        tvCell.backgroundColor = #colorLiteral(red: 0.2644796371, green: 0.4001772404, blue: 0.9960227609, alpha: 1)
         return tvCell
     }
+    
+   
     
     
 }
