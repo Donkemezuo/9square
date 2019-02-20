@@ -120,29 +120,31 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         collectionViewcell.activityIndicator.startAnimating()
         collectionViewcell.nameLabel.text = venueToSet.name
         collectionViewcell.addressLabel.text = venueToSet.location.formattedAddress[0] + " \n" +  venueToSet.location.formattedAddress[1]
-        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
-            if let appError = appError {
-                print("imageClient - \(appError)")
-            } else if let imageLink = imageLink {
-                self.venues[indexPath.row].imageLink = imageLink
-                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
-                    DispatchQueue.main.async {
-                        collectionViewcell.imageView.image = imageIsInCache
-                    }
-                } else {
-                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
-                        if let appError = appError {
-                            print("imageHelper error - \(appError)")
-                        } else if let image = image {
-                            collectionViewcell.imageView.image = image
-                        }
-                    })
-                }
-                DispatchQueue.main.async {
-                    collectionViewcell.activityIndicator.stopAnimating()
-                }
-            }
-        }
+//        ImageAPIClient.getImages(venueID: venueToSet.id) { (appError, imageLink) in
+//            if let appError = appError {
+//                print("imageClient - \(appError)")
+//            } else if let imageLink = imageLink {
+//                self.venues[indexPath.row].imageLink = imageLink
+//                if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: imageLink) {
+//                    DispatchQueue.main.async {
+//                        print("got immage from cache")
+//                        collectionViewcell.imageView.image = imageIsInCache
+//                    }
+//                } else {
+//                    ImageHelper.fetchImageFromNetwork(urlString: imageLink, completion: { (appError, image) in
+//                        if let appError = appError {
+//                            print("imageHelper error - \(appError)")
+//                        } else if let image = image {
+//                            collectionViewcell.imageView.image = image
+//                            print("got immage from network")
+//                        }
+//                    })
+//                }
+//                DispatchQueue.main.async {
+//                    collectionViewcell.activityIndicator.stopAnimating()
+//                }
+//            }
+//        }
         return collectionViewcell
     }
     
