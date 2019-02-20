@@ -10,35 +10,50 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    var testArray = ["Hello", "this", "is", "a", "test"] 
-    
-   var favView = FavoriteView()
-    var favVenue = [FaveRestaurant]()
+    var testArray = ["Hello", "this", "is", "a", "test"]
+    var favView = FavoriteView()
+    var favVenue = [FaveRestaurant](){
+        didSet{
+            DispatchQueue.main.async {
+                self.favView.favTableView.reloadData()
+                
+            }
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
-        
-    
-        
+        self.favView.favTableView.delegate = self
     }
     
 }
 
-extension FavoriteViewController: UITableViewDataSource {
+extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray.count
+        
+        return favVenue.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let faveSelection = testArray[indexPath.row]
-        let tvCell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
-        tvCell.textLabel?.text = faveSelection
-        //tvCell.detailTextLabel?.text = faveSelection
+        let faveSelection = favVenue[indexPath.row]
+        let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
+        tvCell.textLabel?.text = faveSelection.restaurantName
+        tvCell.detailTextLabel?.text = faveSelection.description
+        tvCell.backgroundColor = #colorLiteral(red: 0.2644796371, green: 0.4001772404, blue: 0.9960227609, alpha: 1)
         return tvCell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return "This is a header section"
+    }
+    
+   
     
     
 }

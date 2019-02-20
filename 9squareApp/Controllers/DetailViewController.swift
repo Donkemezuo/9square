@@ -19,8 +19,14 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
-        view.backgroundColor = .red
+
+       
+        detailView.venueName.text = restuarant.name
+        detailView.venueDescription.text = restuarant.location.formattedAddress[0] + "\n" + restuarant.location.formattedAddress[1]
+
+        view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         
+
             addVenue()
         if let linkExists = restuarant.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
