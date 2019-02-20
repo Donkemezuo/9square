@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(DataPersistenceManager.documentsDirectory())
         title = "9Square"
         view.addSubview(mainSearchView)
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
