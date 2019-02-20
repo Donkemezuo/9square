@@ -48,6 +48,8 @@ class FavoriteView: UIView {
     }
     
     func setImageConstraints() {
+       addSubview(favImage)
+        favImage.translatesAutoresizingMaskIntoConstraints = false
         
     }
 }
