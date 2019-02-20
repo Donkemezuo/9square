@@ -9,13 +9,15 @@
 import Foundation
 
 struct FaveRestaurant: Codable {
+    let collectionName: String
     let restaurantName: String
     let favoritedAt: String
     let imageData: Data?
     let description: String
+    let venue: String
     
     public var date: Date {
         let date = favoritedAt.date()
-        return date 
+        return date
     }
 }
