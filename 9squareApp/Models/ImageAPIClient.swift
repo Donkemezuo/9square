@@ -15,7 +15,7 @@ final class ImageAPIClient {
 
        
 
-        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=\(SecretKeys.genesis2ID)&client_secret=\(SecretKeys.genesis2Secret)&v=20190215"
+        let URL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?client_id=\(SecretKeys.raymondID)&client_secret=\(SecretKeys.raymondSecret)&v=20190215"
 
         
         NetworkHelper.shared.performDataTask(endpointURLString: URL, httpMethod: "GET", httpBody: nil) { (appError, data) in
