@@ -20,7 +20,7 @@ class DetailView: UIView {
     public lazy var venueImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "background_1"))
         image.contentMode = .scaleToFill
-            image.layer.cornerRadius = 10.0
+        image.layer.cornerRadius = 10.0
         return image 
     }()
     
