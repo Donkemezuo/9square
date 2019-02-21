@@ -171,7 +171,6 @@ extension MainViewController: CLLocationManagerDelegate {
         } else {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
-       mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
     
     
