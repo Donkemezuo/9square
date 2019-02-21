@@ -10,14 +10,24 @@ import UIKit
 
 class LaunchViewController: UIViewController {
 
+    let launchView = LaunchView()
     
     
-    
+    override func viewWillLayoutSubviews() {
+        self.launchView.launchImage.backgroundColor = .white 
+        self.launchView.launchImage.layer.cornerRadius = self.launchView.launchImage.frame.size.width / 2 
+        self.launchView.launchImage.clipsToBounds = true
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white 
-     
+        super.view.addSubview(launchView)
+        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                UIView.animate(withDuration: 0.40, delay: 0, options: [.repeat, .curveEaseIn], animations: {
+            self.launchView.launchImage.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        })
+
     }
     
 
