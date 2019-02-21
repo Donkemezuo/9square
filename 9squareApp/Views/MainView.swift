@@ -35,8 +35,8 @@ class MainView: UIView {
         
                 cellLayout.itemSize = CGSize.init(width: 225, height: 350)
             let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: cellLayout)
-                collectionView.backgroundColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
-                collectionView.layer.cornerRadius = 5.0
+                collectionView.backgroundColor = #colorLiteral(red: 0.5021357536, green: 0.08945650607, blue: 0.1556991339, alpha: 1)
+                collectionView.layer.cornerRadius = 10.0
         return collectionView
     }()
 
