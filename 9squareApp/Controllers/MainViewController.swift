@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(DataPersistenceManager.documentsDirectory())
         title = "9Square"
         view.addSubview(mainSearchView)
         self.view.backgroundColor = UIColor.green.withAlphaComponent(0.3)
@@ -35,6 +36,7 @@ class MainViewController: UIViewController {
         mainSearchView.collectionView.dataSource = self
         locationManager.delegate = self
         mainSearchView.search.delegate = self
+        mainSearchView.mapView.delegate = self
         checkLocationServices()
         setupKeyboardToolbar()
     }
@@ -44,6 +46,7 @@ class MainViewController: UIViewController {
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
+                print("mainVC - made a network call for \(keyword)")
                 self.venues = venues
                 DispatchQueue.main.async {
                     self.addAnnotations()
@@ -74,7 +77,7 @@ class MainViewController: UIViewController {
     }
     
     @objc private func LocateMeButtonPressed() {
-//        mainSearchView.mapView.showsUserLocation = true
+        mainSearchView.mapView.setCenter(myCurrentRegion.center, animated: true)
     }
     
     func checkLocationServices(){
@@ -133,6 +136,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                             print("imageHelper error - \(appError)")
                         } else if let image = image {
                             collectionViewcell.imageView.image = image
+                            print("mainVC - got image from network")
                         }
                     })
                 }
@@ -149,21 +153,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let destination = DetailViewController(restuarant: venue)
         self.navigationController?.pushViewController(destination, animated: true)
     }
-    
-    
-    
-
 }
 
 
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-//            guard let coordinateRegion = myCurrentRegion else {
-//                print("region coord nil")
-//                return
-//            }
-            coordinateToSearch = myCurrentRegion.center//mainSearchView.mapView.userLocation.coordinate
+            coordinateToSearch = myCurrentRegion.center
         }
         let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mainSearchView.mapView.setRegion(currentRegion, animated: true)
@@ -176,9 +172,37 @@ extension MainViewController: CLLocationManagerDelegate {
         } else {
             myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
         }
-        
        mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
+    
+    
+}
+
+extension MainViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Callouts") as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "Callouts")
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .infoLight)
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let calloutClicked = view.annotation else {
+            fatalError("callout is nil")
+        }
+        if let venueName = calloutClicked.title, let venue = (venues.filter{ $0.name == venueName}).first {
+            let destination = DetailViewController(restuarant: venue)
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+    }
+
 }
 
 extension MainViewController: UISearchBarDelegate {
@@ -189,3 +213,5 @@ extension MainViewController: UISearchBarDelegate {
         UserDefaults.standard.set(searchText, forKey: UserDefaultsKey.searchTerm)
     }
 }
+
+
