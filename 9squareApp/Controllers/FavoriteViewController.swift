@@ -12,6 +12,7 @@ class FavoriteViewController: UIViewController {
     
     var testArray = ["Hello", "this", "is", "a", "test"]
     var favView = FavoriteView()
+
     var favVenue = RestaurantDataManager.fetchFavoriteFromDocumentsDirectory(){
         didSet{
             DispatchQueue.main.async {
@@ -50,8 +51,8 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let chosenCell = tableView.cellForRow(at: indexPath) as? FavoriteTableViewCell else { return }
-        let item = favVenue[indexPath.row]
+        guard (tableView.cellForRow(at: indexPath) as? FavoriteTableViewCell) != nil else { return }
+        _ = favVenue[indexPath.row]
         
         
     
