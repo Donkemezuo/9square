@@ -11,12 +11,9 @@ import Foundation
 final class RestaurantDataManager {
     private init() {}
     
-    //private static let filename = "FavoriteRestaurant.plist"
-    
     static public func fetchFavoriteFromDocumentsDirectory(collection: String) -> [FaveRestaurant] {
         var restaurants = [FaveRestaurant]()
-        let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: collection).path
-        
+        let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: "\(collection).plist").path
         if FileManager.default.fileExists(atPath: path) {
             if let data = FileManager.default.contents(atPath: path) {
                 do {
@@ -35,9 +32,13 @@ final class RestaurantDataManager {
     }
 
     static public func saveToDocumentDirectory(newFavoriteRestaurant: FaveRestaurant, collection: String) -> (success: Bool, error: Error?) {
-        var favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
+        var favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: "\(collection).plist")
+        print(favoriteRestaurants)
         favoriteRestaurants.append(newFavoriteRestaurant)
+        print(favoriteRestaurants)
+        print(favoriteRestaurants.count)
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: collection)
+        print(FileManager.default.fileExists(atPath: path.absoluteString))
         do {
             let data = try PropertyListEncoder().encode(favoriteRestaurants)
             try data.write(to: path, options: Data.WritingOptions.atomic)
