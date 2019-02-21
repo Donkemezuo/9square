@@ -56,12 +56,6 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         return tvCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let restaurant = favoriteVenues[indexPath.section][indexPath.row]
-        let destination = DetailViewController(favRestaurant: restaurant)
-        self.navigationController?.pushViewController(destination, animated: true)
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return collections.count
     }
