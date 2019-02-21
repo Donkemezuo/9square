@@ -63,12 +63,14 @@ print(DataPersistenceManager.documentsDirectory())
         detailView.venueName.text = venue.name
         detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
-        
 
         addVenue()
         getVenueImage()
         setupKeyboardToolbar()
+       
     }
+    
+
     
     fileprivate func setupKeyboardToolbar() {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
@@ -84,7 +86,7 @@ print(DataPersistenceManager.documentsDirectory())
         self.view.endEditing(true)
     }
     
-    
+
     private func addVenue(){
         tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
         navigationItem.rightBarButtonItem = tabBarButton
@@ -104,7 +106,6 @@ print(DataPersistenceManager.documentsDirectory())
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
 
                 
-            
 
                 let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: tip ?? "", description: (self.venue.categories.first?.name)!, venue: self.venue.location.formattedAddress[0] + " " + self.venue.location.formattedAddress[1])
 
@@ -135,8 +136,6 @@ print(DataPersistenceManager.documentsDirectory())
         
     }
     
-    
-    
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
         self.venue = restuarant
@@ -146,8 +145,4 @@ print(DataPersistenceManager.documentsDirectory())
        super.init(coder: aDecoder)
     }
     
-    
-    
-    
-
 }
