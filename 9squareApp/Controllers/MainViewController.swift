@@ -160,18 +160,17 @@ extension MainViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse {
             coordinateToSearch = myCurrentRegion.center
         }
-        let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let currentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 500, longitudinalMeters: 500)
         mainSearchView.mapView.setRegion(currentRegion, animated: true)
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         myCurrentRegion = MKCoordinateRegion()
         if let currentLocation = locations.last {
-            myCurrentRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            myCurrentRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
             
         } else {
-            myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            myCurrentRegion = MKCoordinateRegion(center: coordinateToSearch, latitudinalMeters: 500, longitudinalMeters: 500)
         }
-       mainSearchView.mapView.setRegion(myCurrentRegion, animated: true)
     }
     
     
