@@ -46,7 +46,6 @@ class MainViewController: UIViewController {
             if let appError = appError {
                 print("getVenue - \(appError)")
             } else if let venues = venues {
-                print("mainVC - made a network call for \(keyword)")
                 self.venues = venues
                 DispatchQueue.main.async {
                     self.addAnnotations()
