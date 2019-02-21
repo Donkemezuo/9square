@@ -59,7 +59,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
-
+print(DataPersistenceManager.documentsDirectory())
         detailView.venueName.text = venue.name
         detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
@@ -67,6 +67,21 @@ class DetailViewController: UIViewController {
 
         addVenue()
         getVenueImage()
+        setupKeyboardToolbar()
+    }
+    
+    fileprivate func setupKeyboardToolbar() {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done
+            , target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        detailView.venueTip.inputAccessoryView = toolbar
+    }
+    
+    @objc private func doneButtonAction() {
+        self.view.endEditing(true)
     }
     
     
