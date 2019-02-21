@@ -107,8 +107,9 @@ print(DataPersistenceManager.documentsDirectory())
             
 
                 let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: tip ?? "", description: (self.venue.categories.first?.name)!, venue: self.venue.location.formattedAddress[0] + " " + self.venue.location.formattedAddress[1])
-
-                if  RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave).success {
+                let collectionToSave = CollectionsModel.init(collectionName: collectionName.lowercased())
+                CollectionsDataManager.save(newCollection: collectionToSave)
+                if RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave, collection: "\(collectionName).plist").success {
                     self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
                 } else {
                     print("venue not successfully saved")
