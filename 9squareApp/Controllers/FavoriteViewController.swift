@@ -70,7 +70,7 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         return collections.count
     }
     
-    
+
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return collections[section].collectionName

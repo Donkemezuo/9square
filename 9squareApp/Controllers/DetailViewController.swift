@@ -137,7 +137,6 @@ print(DataPersistenceManager.documentsDirectory())
     }
     
     
-    
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
         self.venue = restuarant
