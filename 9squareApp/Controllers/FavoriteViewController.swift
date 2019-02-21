@@ -27,7 +27,7 @@ class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
@@ -58,8 +58,6 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
 
-    
-    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "This is a header section"
