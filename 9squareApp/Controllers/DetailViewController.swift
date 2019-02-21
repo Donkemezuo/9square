@@ -12,17 +12,22 @@ class DetailViewController: UIViewController {
     
     private let detailView = DetailView()
     private var venue: VenueStruct!
+//    private var faveRestaurant: FaveRestaurant?
     private let venueTipPlaceHolder = "Add a note about this venue..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
         detailView.venueName.text = venue.name
-        detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+        detailView.venueDescription.text =  venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+        getVenueImage()
+//        if let favRestaurantToSet = faveRestaurant {
+//            detailView.venueName.text = favRestaurantToSet.restaurantName
+//            detailView.venueDescription.text = favRestaurantToSet.venue
+//        }
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         detailView.venueTip.delegate = self
         addVenue()
-        getVenueImage()
         setupKeyboardToolbar()
     }
     
@@ -83,8 +88,10 @@ class DetailViewController: UIViewController {
     
     
     private func addVenue(){
-        let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
-        navigationItem.rightBarButtonItem = tabBarButton
+        if let _ = venue {
+            let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
+            navigationItem.rightBarButtonItem = tabBarButton
+        }
     }
     
     @objc private func addToCollection(){

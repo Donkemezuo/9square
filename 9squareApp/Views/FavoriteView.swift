@@ -14,6 +14,7 @@ class FavoriteView: UIView {
        var tv = UITableView()
         tv = UITableView(frame: .zero, style: .plain)
         tv.rowHeight = 150
+        tv.allowsSelection = false
         tv.backgroundColor = #colorLiteral(red: 1, green: 0.9801799655, blue: 0.7814953923, alpha: 1)
         return tv 
     }()
