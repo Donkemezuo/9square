@@ -31,6 +31,8 @@
 		913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F8415221C8D9E007D6426 /* FavoriteView.swift */; };
 		914DCBBD2216063C00800A25 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBBA2216063C00800A25 /* DetailView.swift */; };
 		91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */; };
+		A5474B33221F38D6009E83ED /* CollectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5474B32221F38D6009E83ED /* CollectionsModel.swift */; };
+		A5474B35221F3900009E83ED /* CollectionsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5474B34221F3900009E83ED /* CollectionsDataManager.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
 		A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B25221751BD009E2A14 /* ImageAPIClient.swift */; };
@@ -65,6 +67,8 @@
 		914DCBA5221388E000800A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914DCBBA2216063C00800A25 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Views/DetailView.swift; sourceTree = "<group>"; };
 		91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		A5474B32221F38D6009E83ED /* CollectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsModel.swift; sourceTree = "<group>"; };
+		A5474B34221F3900009E83ED /* CollectionsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsDataManager.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5849AF5221625E3009E2A14 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = 9squareApp/Models/NetworkServices/ImageHelper.swift; sourceTree = SOURCE_ROOT; };
 		A5849B25221751BD009E2A14 /* ImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClient.swift; sourceTree = "<group>"; };
@@ -154,9 +158,11 @@
 			children = (
 				0586C23B22137E840095C3AF /* fourSqExplore.swift */,
 				05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */,
+				A5474B34221F3900009E83ED /* CollectionsDataManager.swift */,
 				0586C247221384A40095C3AF /* ExploreAPIClient.swift */,
 				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
 				05B7E10022176BD100B299F7 /* FaveRestaurant.swift */,
+				A5474B32221F38D6009E83ED /* CollectionsModel.swift */,
 				040337732217644E0063960B /* SecretKeys.swift */,
 				0586C23E22137EE70095C3AF /* fourSqSearch.swift */,
 				0586C245221384450095C3AF /* SearchAPIClient.swift */,
@@ -268,6 +274,7 @@
 				04C68993220E21750081355C /* MainView.swift in Sources */,
 				913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */,
 				05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */,
+				A5474B33221F38D6009E83ED /* CollectionsModel.swift in Sources */,
 				05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */,
 				04C68991220E1EC60081355C /* FavoriteViewController.swift in Sources */,
 				A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */,
@@ -286,6 +293,7 @@
 				05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
 				A5849B28221A1EE3009E2A14 /* UIViewController+Alerts.swift in Sources */,
+				A5474B35221F3900009E83ED /* CollectionsDataManager.swift in Sources */,
 				040337742217644E0063960B /* SecretKeys.swift in Sources */,
 				05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */,
 				05E3CA0C221F1C2F002579DC /* LaunchViewController.swift in Sources */,
