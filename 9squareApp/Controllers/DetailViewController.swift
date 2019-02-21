@@ -11,23 +11,31 @@ import UIKit
 class DetailViewController: UIViewController {
     
     private let detailView = DetailView()
-    private var venue: VenueStruct!
+    private var venue: VenueStruct?
+    private var faveRestaurant: FaveRestaurant?
     private let venueTipPlaceHolder = "Add a note about this venue..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
-        detailView.venueName.text = venue.name
-        detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+        if let venue = venue {
+            detailView.venueName.text = venue.name
+            detailView.venueDescription.text =  venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+            getVenueImage()
+        }
+        if let favRestaurantToSet = faveRestaurant {
+            detailView.venueName.text = favRestaurantToSet.restaurantName
+            detailView.venueDescription.text = favRestaurantToSet.venue
+        }
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         detailView.venueTip.delegate = self
         addVenue()
-        getVenueImage()
         setupKeyboardToolbar()
     }
     
     
     fileprivate func getVenueImage() {
+        if let venue = venue {
         if let linkExists = venue.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
                 detailView.venueImage.image = imageIsInCache
@@ -65,6 +73,7 @@ class DetailViewController: UIViewController {
                 }
             }
         }
+        }
     }
     
     fileprivate func setupKeyboardToolbar() {
@@ -83,8 +92,10 @@ class DetailViewController: UIViewController {
     
     
     private func addVenue(){
-        let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
-        navigationItem.rightBarButtonItem = tabBarButton
+        if let _ = venue {
+            let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
+            navigationItem.rightBarButtonItem = tabBarButton
+        }
     }
     
     @objc private func addToCollection(){
@@ -95,12 +106,14 @@ class DetailViewController: UIViewController {
             let savingDate = Date.getISOTimestamp()
             guard let collectionName = alertController.textFields?.first?.text, let venueTipText = self.detailView.venueTip.text else {return}
             if let imageData = self.detailView.venueImage.image {
+                if let venueToSet = self.venue {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: venueTipText, description: (self.venue.categories.first?.name)!, venue: self.venue.location.formattedAddress[0] + " " + self.venue.location.formattedAddress[1])
+                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: venueToSet.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: venueTipText, description: (venueToSet.categories.first?.name)!, venue: venueToSet.location.formattedAddress[0] + " " + venueToSet.location.formattedAddress[1])
                 let collectionToSave = CollectionsModel.init(collectionName: collectionName.lowercased())
                 CollectionsDataManager.save(newCollection: collectionToSave)
                 RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSave, collection: "\(collectionName).plist")
                  self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
+                }
             }
             
         }
@@ -123,6 +136,11 @@ class DetailViewController: UIViewController {
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
         self.venue = restuarant
+    }
+    
+    init(favRestaurant: FaveRestaurant){
+        super.init(nibName: nil, bundle: nil)
+        self.faveRestaurant = favRestaurant
     }
     
     required init?(coder aDecoder: NSCoder) {

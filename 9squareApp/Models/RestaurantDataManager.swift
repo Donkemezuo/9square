@@ -33,6 +33,7 @@ final class RestaurantDataManager {
     }
 
     static public func save(collection: String) {
+        favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: collection)
         do {
             let data = try PropertyListEncoder().encode(favoriteRestaurants)

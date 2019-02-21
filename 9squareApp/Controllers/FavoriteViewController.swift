@@ -37,8 +37,6 @@ class FavoriteViewController: UIViewController {
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
         collections = CollectionsDataManager.fetchCollections()
-        print(collections)
-        print(favoriteVenues)
     }
 
     
@@ -58,13 +56,11 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         return tvCell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard (tableView.cellForRow(at: indexPath) as? FavoriteTableViewCell) != nil else { return }
-//        _ = favVenue[indexPath.row]
-//
-//
-//
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let restaurant = favoriteVenues[indexPath.section][indexPath.row]
+        let destination = DetailViewController(favRestaurant: restaurant)
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return collections.count
