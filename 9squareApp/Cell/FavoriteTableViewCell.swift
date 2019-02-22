@@ -21,7 +21,7 @@ class FavoriteTableViewCell: UITableViewCell {
         var label = UILabel()
         label.text = "Fave label"
         label.font = UIFont(name: "Copperplate-Bold", size: 20)
-        label.textColor = .black
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -29,11 +29,12 @@ class FavoriteTableViewCell: UITableViewCell {
     public lazy var addressLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "Copperplate-Bold", size: 15)
-        label.textColor = .black
+        label.textColor = .white
+        label.numberOfLines = 0
         return label
     }()
     
-    public lazy var timeFavoritedLabel: UILabel = {
+    public lazy var venueTip: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Copperplate-Bold", size: 15)
         label.textColor = .white 
@@ -53,15 +54,13 @@ class FavoriteTableViewCell: UITableViewCell {
         view.addSubview(addressLabel)
         view.addSubview(favImage)
         view.addSubview(favLabel)
-        view.addSubview(timeFavoritedLabel)
-        
-        
-        
+        view.addSubview(venueTip)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         favImage.translatesAutoresizingMaskIntoConstraints = false
         favLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeFavoritedLabel.translatesAutoresizingMaskIntoConstraints = false
+        venueTip.translatesAutoresizingMaskIntoConstraints = false
         
         view.topAnchor.constraint(equalTo: topAnchor).isActive = true
         view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -77,17 +76,16 @@ class FavoriteTableViewCell: UITableViewCell {
         favLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
         favLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         favLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        
        
-        addressLabel.topAnchor.constraint(equalTo: favLabel.bottomAnchor, constant: -50).isActive = true
+        addressLabel.topAnchor.constraint(equalTo: favLabel.bottomAnchor, constant: 0).isActive = true
         addressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
         addressLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         addressLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
-        timeFavoritedLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 5).isActive = true
-        timeFavoritedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
-        timeFavoritedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        timeFavoritedLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        venueTip.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 5).isActive = true
+        venueTip.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
+        venueTip.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        venueTip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
         
         
