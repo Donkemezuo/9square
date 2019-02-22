@@ -20,7 +20,7 @@ class FavoriteTableViewCell: UITableViewCell {
     public lazy var favLabel: UILabel = {
         var label = UILabel()
         label.text = "Fave label"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont(name: "Copperplate-Bold", size: 20)
         label.textColor = .black
         label.numberOfLines = 0
         return label
@@ -28,15 +28,15 @@ class FavoriteTableViewCell: UITableViewCell {
     
     public lazy var addressLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont(name: "Copperplate-Bold", size: 15)
         label.textColor = .black
         return label
     }()
     
     public lazy var timeFavoritedLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .black
+        label.font = UIFont(name: "Copperplate-Bold", size: 15)
+        label.textColor = .white 
         label.numberOfLines = 0
         return label
         
@@ -44,6 +44,7 @@ class FavoriteTableViewCell: UITableViewCell {
     
     public lazy var view: UIView = {
         var view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         return view
     }()
     
@@ -70,7 +71,7 @@ class FavoriteTableViewCell: UITableViewCell {
         favImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         favImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -260).isActive = true
         favImage.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        favImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        favImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         
         favLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10).isActive = true
         favLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
