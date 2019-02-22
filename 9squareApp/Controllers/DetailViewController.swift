@@ -96,28 +96,24 @@ class DetailViewController: UIViewController {
         
         let save = UIAlertAction(title: "Submit", style: .default) { (alert) in
             let savingDate = Date.getISOTimestamp()
-            guard let collectionName = alertController.textFields?.first?.text, let venueTipText = self.detailView.venueTip.text else {return}
+            guard let collectionName = alertController.textFields?.first?.text else {return}
+            var venueTip: String?
+            if self.detailView.venueTip.text != self.venueTipPlaceHolder {
+                venueTip = self.detailView.venueTip.text
+            }
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                
-                let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , tipOne: venueTipText, description: self.venue.name, venue: self.venue.location.modifiedAddress)
-                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: collectionName)
-                
+                let collectionToSave = CollectionsModel.init(collectionName: collectionName)
+                CollectionsDataManager.add(newCollection: collectionToSave)
+                let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , venueTip: venueTip, description: self.venue.name, address: self.venue.location.modifiedAddress)
+                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: "\(collectionName).plist")
                 self.showAlert(title: "Saved", message: "Successfully favorited to \(collectionName) collection")
             }
-            
-          
-            
         }
-        
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (alert) in
-        })
-        
-
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addTextField {(textfield) in
             textfield.placeholder = "Enter collection name"
             textfield.textAlignment =  .center
-            
         }
         alertController.addAction(save)
         alertController.addAction(cancel)

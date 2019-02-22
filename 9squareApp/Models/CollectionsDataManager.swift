@@ -12,11 +12,10 @@ final class CollectionsDataManager {
     private init() {}
     
     private static let filename = "Collections.plist"
+    private static var collections = [CollectionsModel]()
     
     static public func fetchCollections() -> [CollectionsModel] {
-        var collections = [CollectionsModel]()
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: filename).path
-        
         if FileManager.default.fileExists(atPath: path) {
             if let data = FileManager.default.contents(atPath: path) {
                 do {
@@ -33,24 +32,7 @@ final class CollectionsDataManager {
         return collections
     }
     
-    static public func save(newCollection: CollectionsModel) {
-        var collections = fetchCollections()
-//        for collection in collections {
-//            if collection.collectionName == newCollection.collectionName {
-//                print("repeated collection \(collection.collectionName)")
-//            } else {
-//                print("no repeated collections")
-//                let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: filename)
-//                do {
-//                    let data = try PropertyListEncoder().encode(collections)
-//                    try data.write(to: path, options: Data.WritingOptions.atomic)
-//                } catch {
-//                    print("property list encoding error: \(error)")
-//                }
-//            }
-//        }
-        if (collections.filter{ $0.collectionName == newCollection.collectionName }).isEmpty {
-        collections.append(newCollection)
+    static public func save() {
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: filename)
         do {
             let data = try PropertyListEncoder().encode(collections)
@@ -58,8 +40,17 @@ final class CollectionsDataManager {
         } catch {
             print("property list encoding error: \(error)")
         }
+    }
+    
+    static public func add(newCollection: CollectionsModel) {
+        if (collections.filter{ $0.collectionName == newCollection.collectionName }).isEmpty {
+        collections.append(newCollection)
+        save()
         }
     }
     
-    
+    static public func removeCollection(atIndex: Int) {
+        collections.remove(at: atIndex)
+        save()
+    }
 }

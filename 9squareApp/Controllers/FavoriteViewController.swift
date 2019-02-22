@@ -10,7 +10,6 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    var testArray = ["Hello", "this", "is", "a", "test"]
     private var favView = FavoriteView()
     private var collections = [CollectionsModel]() {
         didSet {
@@ -25,18 +24,22 @@ class FavoriteViewController: UIViewController {
     
     var detailVC: DetailViewController!
 
+    fileprivate func fetchCollections() {
+        collections = CollectionsDataManager.fetchCollections()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        collections = CollectionsDataManager.fetchCollections()
+        fetchCollections()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Favorite Venues"
+        navigationItem.title = "Favorite Venues"
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
-        collections = CollectionsDataManager.fetchCollections()
+        fetchCollections()
     }
 
     
@@ -45,18 +48,17 @@ class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteVenues[section].count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let faveSelection = favoriteVenues[indexPath.section][indexPath.row]
         guard let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
         tvCell.favLabel.text = faveSelection.restaurantName
-        tvCell.addressLabel.text = faveSelection.venue
+        tvCell.addressLabel.text = faveSelection.address
         if let imageData = faveSelection.imageData {
-             tvCell.favImage.image = UIImage.init(data: imageData)
+             tvCell.favImage.image = UIImage(data: imageData)
         }
-        tvCell.timeFavoritedLabel.text = faveSelection.favoritedAt
+        tvCell.venueTip.text = faveSelection.venueTip ?? ""
         return tvCell
     }
     
@@ -64,13 +66,17 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         return collections.count
     }
     
-
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return collections[section].collectionName
     }
     
-   
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        RestaurantDataManager.deleteRestaurant(atIndex: indexPath.row, collection: favoriteVenues[indexPath.section][indexPath.row].collectionName)
+        if favoriteVenues[indexPath.section].isEmpty {
+            CollectionsDataManager.removeCollection(atIndex: indexPath.section)
+        }
+        fetchCollections()
+    }
     
     
 }
