@@ -13,7 +13,7 @@ class LaunchView: UIView {
     
     public lazy var launchImage: UIImageView = {
         let launchImg = UIImageView()
-        launchImg.image = UIImage(named: "AnimateLogo")
+        launchImg.image = UIImage(named: "SmallLogo")
         launchImg.contentMode = .scaleAspectFit
         launchImg.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         launchImg.layer.borderWidth = 4

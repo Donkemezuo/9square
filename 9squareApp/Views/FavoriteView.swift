@@ -13,6 +13,8 @@ class FavoriteView: UIView {
     public lazy var favTableView: UITableView = {
        var tv = UITableView()
         tv = UITableView(frame: .zero, style: .plain)
+        tv.backgroundColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
+        tv.sectionIndexColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
         tv.rowHeight = 150
         return tv 
     }()
