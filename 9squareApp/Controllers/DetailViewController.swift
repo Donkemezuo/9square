@@ -10,11 +10,22 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let detailView = DetailView()
-
+    private let detailView = DetailView()
     private var venue: VenueStruct!
-    var tabBarButton = UIBarButtonItem()
-
+    private let venueTipPlaceHolder = "Add a note about this venue..."
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(detailView)
+        detailView.venueName.text = venue.name
+        detailView.venueDescription.text =  venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+        getVenueImage()
+        view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+        detailView.venueTip.delegate = self
+        addVenue()
+        setupKeyboardToolbar()
+    }
+    
     
     fileprivate func getVenueImage() {
         if let linkExists = venue.imageLink {
@@ -32,7 +43,7 @@ class DetailViewController: UIViewController {
                     }
                 }
             }
-        } else {//get the link
+        } else {
             ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
                 if let appError = appError {
                     print("detailVC imageAPIClient error = \(appError)")
@@ -56,20 +67,7 @@ class DetailViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(detailView)
-print(DataPersistenceManager.documentsDirectory())
-        detailView.venueName.text = venue.name
-        detailView.venueDescription.text = "Address:\n" + venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
-        view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
-        
 
-        addVenue()
-        getVenueImage()
-        setupKeyboardToolbar()
-    }
-    
     fileprivate func setupKeyboardToolbar() {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -84,42 +82,35 @@ print(DataPersistenceManager.documentsDirectory())
         self.view.endEditing(true)
     }
     
-    
+
     private func addVenue(){
-        tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
-        navigationItem.rightBarButtonItem = tabBarButton
+        if let _ = venue {
+            let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
+            navigationItem.rightBarButtonItem = tabBarButton
+        }
     }
     
     @objc private func addToCollection(){
         
-    let alertController =  UIAlertController(title: "", message: "Please enter a category name you want to save this venue", preferredStyle: .alert)
+    let alertController =  UIAlertController(title: "", message: "Please enter a category name", preferredStyle: .alert)
         
         let save = UIAlertAction(title: "Submit", style: .default) { (alert) in
-            //this is when they press submit
             let savingDate = Date.getISOTimestamp()
-            guard let collectionName = alertController.textFields?.first?.text else {return}
-          let tip = self.detailView.venueTip.text
-           
+            guard let collectionName = alertController.textFields?.first?.text, let venueTipText = self.detailView.venueTip.text else {return}
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-
                 
-            
-
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage, tipOne: tip ?? "", description: (self.venue.categories.first?.name)!, venue: self.venue.location.formattedAddress[0] + " " + self.venue.location.formattedAddress[1])
-                let collectionToSave = CollectionsModel.init(collectionName: collectionName.lowercased())
-                CollectionsDataManager.save(newCollection: collectionToSave)
-                if RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave, collection: "\(collectionName).plist").success {
-                    self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
-                } else {
-                    print("venue not successfully saved")
-                }
+                let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , tipOne: venueTipText, description: self.venue.name, venue: self.venue.location.modifiedAddress)
+                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: collectionName)
+                
+                self.showAlert(title: "Saved", message: "Successfully favorited to \(collectionName) collection")
             }
+            
+          
             
         }
         
         let cancel = UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (alert) in
-            
         })
         
 
@@ -128,16 +119,12 @@ print(DataPersistenceManager.documentsDirectory())
             textfield.textAlignment =  .center
             
         }
-        
         alertController.addAction(save)
         alertController.addAction(cancel)
-        
         present(alertController, animated: true)
-        
     }
     
-    
-    
+
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
         self.venue = restuarant
@@ -147,8 +134,12 @@ print(DataPersistenceManager.documentsDirectory())
        super.init(coder: aDecoder)
     }
     
-    
-    
-    
+}
 
+extension DetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == venueTipPlaceHolder {
+            textView.text = ""
+        }
+    }
 }

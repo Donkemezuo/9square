@@ -16,6 +16,8 @@ class FavoriteView: UIView {
         tv.backgroundColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
         tv.sectionIndexColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
         tv.rowHeight = 150
+        tv.allowsSelection = false
+        tv.backgroundColor = #colorLiteral(red: 1, green: 0.9801799655, blue: 0.7814953923, alpha: 1)
         return tv 
     }()
     
