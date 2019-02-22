@@ -10,10 +10,17 @@ import UIKit
 
 class DetailView: UIView {
     
+    public lazy var activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView()
+        ai.style = .gray
+        ai.hidesWhenStopped = true
+        return ai
+    }()
+    
     public lazy var venueImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "background_1"))
         image.contentMode = .scaleToFill
-            image.layer.cornerRadius = 10.0
+        image.layer.cornerRadius = 10.0
         return image 
     }()
     
@@ -40,7 +47,22 @@ class DetailView: UIView {
         return textView
     }()
     
+    public lazy var noteView: UIView = {
+        let view = UIView()
+        return view
+    }()
     
+    public lazy var venueTip: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont.boldSystemFont(ofSize: 15)
+        textView.isEditable = true
+        textView.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+        textView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        textView.text = "Add a note about this venue..."
+        return textView
+    }()
+    
+
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -60,9 +82,17 @@ class DetailView: UIView {
         addSubview(venueImage)
         addSubview(venueName)
         addSubview(venueDescription)
+        addSubview(activityIndicator)
+        addSubview(noteView)
+        addSubview(venueTip)
+    
         venueImage.translatesAutoresizingMaskIntoConstraints = false
         venueName.translatesAutoresizingMaskIntoConstraints = false
         venueDescription.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        noteView.translatesAutoresizingMaskIntoConstraints = false
+        venueTip.translatesAutoresizingMaskIntoConstraints = false
+        
         
         venueImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         venueImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -400).isActive = true
@@ -77,7 +107,21 @@ class DetailView: UIView {
         venueDescription.topAnchor.constraint(equalTo: venueName.bottomAnchor, constant: 5).isActive = true
         venueDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         venueDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
-        venueDescription.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        venueDescription.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08).isActive = true
+        
+        noteView.topAnchor.constraint(equalTo: venueDescription.bottomAnchor, constant: 5).isActive = true
+        noteView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+        noteView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
+        noteView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        venueTip.topAnchor.constraint(equalTo: noteView.topAnchor).isActive = true
+        venueTip.leadingAnchor.constraint(equalTo: noteView.leadingAnchor).isActive = true
+        venueTip.trailingAnchor.constraint(equalTo: noteView.trailingAnchor).isActive = true
+        venueTip.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+     
+        activityIndicator.centerYAnchor.constraint(equalTo: venueImage.centerYAnchor, constant: 0).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: venueImage.centerXAnchor, constant: 0).isActive = true
     }
     
     

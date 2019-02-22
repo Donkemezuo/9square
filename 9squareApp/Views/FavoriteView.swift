@@ -13,18 +13,19 @@ class FavoriteView: UIView {
     public lazy var favTableView: UITableView = {
        var tv = UITableView()
         tv = UITableView(frame: .zero, style: .plain)
+        tv.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+        tv.sectionIndexColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
         tv.rowHeight = 150
+        tv.allowsSelection = false
         return tv 
     }()
     
-    public lazy var favImage: UIImageView = {
-        var image = UIImageView(image: UIImage(named: "food"))
-        return image
-    }()
+  
     
     override init(frame: CGRect){
         super.init(frame: UIScreen.main.bounds)
         commonInit()
+        self.favTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "favoriteCell")
         
     }
     
@@ -47,9 +48,5 @@ class FavoriteView: UIView {
         favTableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
     
-    func setImageConstraints() {
-       addSubview(favImage)
-        favImage.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
+   
 }

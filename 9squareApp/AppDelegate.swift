@@ -10,23 +10,35 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var launchScreenVC = LaunchViewController()
     var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-       
+        launchScreen()
+        return true
+    }
+
+    
+    private func launchScreen() {
+        self.window = UIWindow.init(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = launchScreenVC
+        self.window?.makeKeyAndVisible()
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(dismissLaunchScreen), userInfo: nil, repeats: false)
+    }
+    @objc func dismissLaunchScreen() {
         let mainVC = MainViewController()
         let favoriteVC = FavoriteViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorites"), tag: 1)
         let mainVCNav = UINavigationController.init(rootViewController: mainVC)
+        let favVCNav = UINavigationController.init(rootViewController: favoriteVC)
         mainVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchIcon"), tag: 0)
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [mainVCNav,favoriteVC]
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = tabBar
-        return true
+        tabBar.viewControllers = [mainVCNav,favVCNav]
+        launchScreenVC.present(tabBar, animated: true, completion: nil)
     }
-
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

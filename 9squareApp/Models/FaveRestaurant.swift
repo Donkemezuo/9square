@@ -13,8 +13,9 @@ struct FaveRestaurant: Codable {
     let restaurantName: String
     let favoritedAt: String
     let imageData: Data?
+    let venueTip: String?
     let description: String
-    let venue: String
+    let address: String
     
     public var date: Date {
         let date = favoritedAt.date()

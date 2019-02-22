@@ -10,50 +10,73 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    var testArray = ["Hello", "this", "is", "a", "test"]
-    var favView = FavoriteView()
-    var favVenue = [FaveRestaurant](){
-        didSet{
-            DispatchQueue.main.async {
-                self.favView.favTableView.reloadData()
-                
+    private var favView = FavoriteView()
+    private var collections = [CollectionsModel]() {
+        didSet {
+            favoriteVenues.removeAll()
+            for collection in collections {
+                favoriteVenues.append(RestaurantDataManager.fetchFavoriteFromDocumentsDirectory(collection: collection.collectionName))
             }
+            favView.favTableView.reloadData()
         }
-        
+    }
+    private var favoriteVenues: [[FaveRestaurant]] = []
+    
+    var detailVC: DetailViewController!
+
+    fileprivate func fetchCollections() {
+        collections = CollectionsDataManager.fetchCollections()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchCollections()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+        navigationItem.title = "Favorite Venues"
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
+        fetchCollections()
     }
+
     
 }
 
 extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return favVenue.count
-        
+        return favoriteVenues[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let faveSelection = favVenue[indexPath.row]
-        let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
-        tvCell.textLabel?.text = faveSelection.restaurantName
-        tvCell.detailTextLabel?.text = faveSelection.description
-        tvCell.backgroundColor = #colorLiteral(red: 0.2644796371, green: 0.4001772404, blue: 0.9960227609, alpha: 1)
+        let faveSelection = favoriteVenues[indexPath.section][indexPath.row]
+        guard let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
+        tvCell.favLabel.text = faveSelection.restaurantName
+        tvCell.addressLabel.text = faveSelection.address
+        if let imageData = faveSelection.imageData {
+             tvCell.favImage.image = UIImage(data: imageData)
+        }
+        tvCell.venueTip.text = faveSelection.venueTip ?? ""
         return tvCell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return "This is a header section"
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return collections.count
     }
     
-   
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return collections[section].collectionName
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        RestaurantDataManager.deleteRestaurant(atIndex: indexPath.row, collection: favoriteVenues[indexPath.section][indexPath.row].collectionName)
+        if favoriteVenues[indexPath.section].isEmpty {
+            CollectionsDataManager.removeCollection(atIndex: indexPath.section)
+        }
+        fetchCollections()
+    }
     
     
 }

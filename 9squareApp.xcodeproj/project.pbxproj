@@ -20,15 +20,19 @@
 		0586C241221383A30095C3AF /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C240221383A30095C3AF /* AppError.swift */; };
 		0586C244221384140095C3AF /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C243221384140095C3AF /* NetworkHelper.swift */; };
 		0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C245221384450095C3AF /* SearchAPIClient.swift */; };
-		0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C247221384A40095C3AF /* ExploreAPIClient.swift */; };
 		05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */; };
 		05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */; };
 		05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */; };
 		05B7E10122176BD100B299F7 /* FaveRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10022176BD100B299F7 /* FaveRestaurant.swift */; };
 		05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10222176CA600B299F7 /* Date+Extensions.swift */; };
 		05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E10522176D8600B299F7 /* String + DateExtensions.swift */; };
+		05E3CA0C221F1C2F002579DC /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3CA0B221F1C2F002579DC /* LaunchViewController.swift */; };
+		05E3CA0E221F4038002579DC /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E3CA0D221F4038002579DC /* LaunchView.swift */; };
 		913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F8415221C8D9E007D6426 /* FavoriteView.swift */; };
 		914DCBBD2216063C00800A25 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914DCBBA2216063C00800A25 /* DetailView.swift */; };
+		91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */; };
+		A5474B33221F38D6009E83ED /* CollectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5474B32221F38D6009E83ED /* CollectionsModel.swift */; };
+		A5474B35221F3900009E83ED /* CollectionsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5474B34221F3900009E83ED /* CollectionsDataManager.swift */; };
 		A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5584D7E220E307C001C5763 /* MainViewController.swift */; };
 		A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849AF5221625E3009E2A14 /* ImageHelper.swift */; };
 		A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5849B25221751BD009E2A14 /* ImageAPIClient.swift */; };
@@ -51,16 +55,20 @@
 		0586C240221383A30095C3AF /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		0586C243221384140095C3AF /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		0586C245221384450095C3AF /* SearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIClient.swift; sourceTree = "<group>"; };
-		0586C247221384A40095C3AF /* ExploreAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreAPIClient.swift; sourceTree = "<group>"; };
 		05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqPhotoModel.swift; sourceTree = "<group>"; };
 		05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 		05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDataManager.swift; sourceTree = "<group>"; };
 		05B7E10022176BD100B299F7 /* FaveRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaveRestaurant.swift; sourceTree = "<group>"; };
 		05B7E10222176CA600B299F7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		05B7E10522176D8600B299F7 /* String + DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + DateExtensions.swift"; sourceTree = "<group>"; };
+		05E3CA0B221F1C2F002579DC /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		05E3CA0D221F4038002579DC /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		913F8415221C8D9E007D6426 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		914DCBA5221388E000800A25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914DCBBA2216063C00800A25 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Views/DetailView.swift; sourceTree = "<group>"; };
+		91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		A5474B32221F38D6009E83ED /* CollectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsModel.swift; sourceTree = "<group>"; };
+		A5474B34221F3900009E83ED /* CollectionsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsDataManager.swift; sourceTree = "<group>"; };
 		A5584D7E220E307C001C5763 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5849AF5221625E3009E2A14 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = 9squareApp/Models/NetworkServices/ImageHelper.swift; sourceTree = SOURCE_ROOT; };
 		A5849B25221751BD009E2A14 /* ImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClient.swift; sourceTree = "<group>"; };
@@ -99,14 +107,15 @@
 			isa = PBXGroup;
 			children = (
 				A5849B29221A26E5009E2A14 /* UserDefaultsKey.swift */,
+				040337732217644E0063960B /* SecretKeys.swift */,
+				0586C242221383B90095C3AF /* NetworkServices */,
+				0586C23D22137EB60095C3AF /* Models */,
+				04C68994220E21890081355C /* Views */,
+				04C68995220E21A40081355C /* Controllers */,
 				05B7E10422176D6400B299F7 /* Date Helpers */,
 				05B7E0FD2217696600B299F7 /* File Manager Helpers */,
 				04D66EB22215FE9300731E15 /* Cell */,
-				04C68995220E21A40081355C /* Controllers */,
-				04C68994220E21890081355C /* Views */,
 				04C6897E220DF4DC0081355C /* AppDelegate.swift */,
-				0586C242221383B90095C3AF /* NetworkServices */,
-				0586C23D22137EB60095C3AF /* Models */,
 				04C68985220DF4DE0081355C /* Assets.xcassets */,
 				04C68987220DF4DE0081355C /* LaunchScreen.storyboard */,
 				914DCBA5221388E000800A25 /* Info.plist */,
@@ -119,6 +128,7 @@
 			children = (
 				914DCBBA2216063C00800A25 /* DetailView.swift */,
 				04C68992220E21750081355C /* MainView.swift */,
+				05E3CA0D221F4038002579DC /* LaunchView.swift */,
 				913F8415221C8D9E007D6426 /* FavoriteView.swift */,
 			);
 			path = Views;
@@ -127,8 +137,8 @@
 		04C68995220E21A40081355C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				05E3CA0B221F1C2F002579DC /* LaunchViewController.swift */,
 				A5584D7E220E307C001C5763 /* MainViewController.swift */,
-				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
 				04C68990220E1EC60081355C /* FavoriteViewController.swift */,
 				04D66EB52216259700731E15 /* DetailViewController.swift */,
 			);
@@ -139,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				04D66EB32215FEAE00731E15 /* SearchCollectionViewCell.swift */,
+				91A8506E221DE0FA00C0E4AB /* FavoriteTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -148,12 +159,10 @@
 			children = (
 				0586C23B22137E840095C3AF /* fourSqExplore.swift */,
 				05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */,
-				0586C247221384A40095C3AF /* ExploreAPIClient.swift */,
-				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
+				A5474B34221F3900009E83ED /* CollectionsDataManager.swift */,
 				05B7E10022176BD100B299F7 /* FaveRestaurant.swift */,
-				040337732217644E0063960B /* SecretKeys.swift */,
+				A5474B32221F38D6009E83ED /* CollectionsModel.swift */,
 				0586C23E22137EE70095C3AF /* fourSqSearch.swift */,
-				0586C245221384450095C3AF /* SearchAPIClient.swift */,
 				05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */,
 			);
 			path = Models;
@@ -165,6 +174,8 @@
 				0586C240221383A30095C3AF /* AppError.swift */,
 				0586C243221384140095C3AF /* NetworkHelper.swift */,
 				A5849AF5221625E3009E2A14 /* ImageHelper.swift */,
+				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
+				0586C245221384450095C3AF /* SearchAPIClient.swift */,
 			);
 			name = NetworkServices;
 			path = Models/NetworkServices;
@@ -181,6 +192,7 @@
 		05B7E10422176D6400B299F7 /* Date Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
 				05B7E10222176CA600B299F7 /* Date+Extensions.swift */,
 				A5849B27221A1EE3009E2A14 /* UIViewController+Alerts.swift */,
 			);
@@ -262,25 +274,29 @@
 				04C68993220E21750081355C /* MainView.swift in Sources */,
 				913F8416221C8D9E007D6426 /* FavoriteView.swift in Sources */,
 				05B7E10322176CA600B299F7 /* Date+Extensions.swift in Sources */,
+				A5474B33221F38D6009E83ED /* CollectionsModel.swift in Sources */,
 				05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */,
 				04C68991220E1EC60081355C /* FavoriteViewController.swift in Sources */,
 				A5849B26221751BD009E2A14 /* ImageAPIClient.swift in Sources */,
 				914DCBBD2216063C00800A25 /* DetailView.swift in Sources */,
 				0586C244221384140095C3AF /* NetworkHelper.swift in Sources */,
 				0586C241221383A30095C3AF /* AppError.swift in Sources */,
-				0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */,
 				05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */,
+				91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */,
 				0586C23F22137EE70095C3AF /* fourSqSearch.swift in Sources */,
 				0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */,
 				A5584D7F220E307C001C5763 /* MainViewController.swift in Sources */,
+				05E3CA0E221F4038002579DC /* LaunchView.swift in Sources */,
 				0586C23C22137E840095C3AF /* fourSqExplore.swift in Sources */,
 				05B7E10122176BD100B299F7 /* FaveRestaurant.swift in Sources */,
 				04D66EB42215FEAE00731E15 /* SearchCollectionViewCell.swift in Sources */,
 				05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */,
 				04C6897F220DF4DC0081355C /* AppDelegate.swift in Sources */,
 				A5849B28221A1EE3009E2A14 /* UIViewController+Alerts.swift in Sources */,
+				A5474B35221F3900009E83ED /* CollectionsDataManager.swift in Sources */,
 				040337742217644E0063960B /* SecretKeys.swift in Sources */,
 				05B7E10622176D8600B299F7 /* String + DateExtensions.swift in Sources */,
+				05E3CA0C221F1C2F002579DC /* LaunchViewController.swift in Sources */,
 				A5849AF6221625E3009E2A14 /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,7 +436,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PLXRGQY243;
+				DEVELOPMENT_TEAM = WGF5N989LK;
 				INFOPLIST_FILE = 9squareApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -439,7 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PLXRGQY243;
+				DEVELOPMENT_TEAM = WGF5N989LK;
 				INFOPLIST_FILE = 9squareApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

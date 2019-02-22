@@ -10,98 +10,132 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let detailView = DetailView()
-
-    private var restuarant:VenueStruct!
-    var tabBarButton = UIBarButtonItem()
-
+    private let detailView = DetailView()
+    private var venue: VenueStruct!
+    private let venueTipPlaceHolder = "Add a note about this venue..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(detailView)
-
-       
-        detailView.venueName.text = restuarant.name
-        detailView.venueDescription.text = restuarant.location.formattedAddress[0] + "\n" + restuarant.location.formattedAddress[1]
-
+        detailView.venueName.text = venue.name
+        detailView.venueDescription.text =  venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
+        getVenueImage()
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
-        
-
-            addVenue()
-        if let linkExists = restuarant.imageLink {
+        detailView.venueTip.delegate = self
+        addVenue()
+        setupKeyboardToolbar()
+    }
+    
+    
+    fileprivate func getVenueImage() {
+        if let linkExists = venue.imageLink {
             if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: linkExists) {
                 detailView.venueImage.image = imageIsInCache
+                detailView.activityIndicator.stopAnimating()
             } else {
                 ImageHelper.fetchImageFromNetwork(urlString: linkExists) { (appError, image) in
                     if let appError = appError {
                         print("imageHelper in detail vc error = \(appError)")
                     } else if let image = image {
                         self.detailView.venueImage.image = image
-
-                        
+                        self.detailView.activityIndicator.stopAnimating()
+                        print("Detail VC made network call for image")
+                    }
+                }
+            }
+        } else {
+            ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
+                if let appError = appError {
+                    print("detailVC imageAPIClient error = \(appError)")
+                } else if let link = link {
+                    if let imageIsInCache = ImageHelper.fetchImageFromCache(urlString: link) {
+                        self.detailView.venueImage.image = imageIsInCache
+                        self.detailView.activityIndicator.stopAnimating()
+                    } else {
+                        ImageHelper.fetchImageFromNetwork(urlString: link) { (appError, image) in
+                            if let appError = appError {
+                                print("imageHelper in detail vc error = \(appError)")
+                            } else if let image = image {
+                                self.detailView.venueImage.image = image
+                                self.detailView.activityIndicator.stopAnimating()
+                                print("Detail VC made network call for image bc link wasn't available")
+                            }
+                        }
                     }
                 }
             }
         }
     }
     
+
+    fileprivate func setupKeyboardToolbar() {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done
+            , target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        detailView.venueTip.inputAccessoryView = toolbar
+    }
     
+    @objc private func doneButtonAction() {
+        self.view.endEditing(true)
+    }
+    
+
     private func addVenue(){
-        tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
-        navigationItem.rightBarButtonItem = tabBarButton
+        if let _ = venue {
+            let tabBarButton =  UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addToCollection))
+            navigationItem.rightBarButtonItem = tabBarButton
+        }
     }
     
     @objc private func addToCollection(){
         
-    let alertController =  UIAlertController(title: "", message: "Please enter a category name you want to save this venue", preferredStyle: .alert)
+    let alertController =  UIAlertController(title: "", message: "Please enter a category name", preferredStyle: .alert)
         
         let save = UIAlertAction(title: "Submit", style: .default) { (alert) in
-            //this is when they press submit
             let savingDate = Date.getISOTimestamp()
             guard let collectionName = alertController.textFields?.first?.text else {return}
+            var venueTip: String?
+            if self.detailView.venueTip.text != self.venueTipPlaceHolder {
+                venueTip = self.detailView.venueTip.text
+            }
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-                let venueToSave = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.restuarant.name, favoritedAt: savingDate, imageData: favoritedVenueImage, description: (self.restuarant.categories.first?.name)!, venue: self.restuarant.location.modifiedAddress)
-                
-    RestaurantDataManager.saveToDocumentDirectory(newFavoriteRestaurant: venueToSave)
-                
-         self.showAlert(title: "Success", message: "Successfully saved venue to \(collectionName)")
-
+                let collectionToSave = CollectionsModel.init(collectionName: collectionName)
+                CollectionsDataManager.add(newCollection: collectionToSave)
+                let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , venueTip: venueTip, description: self.venue.name, address: self.venue.location.modifiedAddress)
+                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: "\(collectionName).plist")
+                self.showAlert(title: "Saved", message: "Successfully favorited to \(collectionName) collection")
             }
-            
         }
-        
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (alert) in
-            
-        })
-        
-
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addTextField {(textfield) in
             textfield.placeholder = "Enter collection name"
             textfield.textAlignment =  .center
-            
         }
-        
         alertController.addAction(save)
         alertController.addAction(cancel)
-        
         present(alertController, animated: true)
-        
     }
     
-    
-    
+
     init(restuarant: VenueStruct){
         super.init(nibName: nil, bundle: nil)
-        self.restuarant = restuarant
+        self.venue = restuarant
     }
     
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
     }
     
-    
-    
-    
+}
 
+extension DetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == venueTipPlaceHolder {
+            textView.text = ""
+        }
+    }
 }
