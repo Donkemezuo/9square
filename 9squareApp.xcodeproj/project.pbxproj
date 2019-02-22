@@ -137,9 +137,8 @@
 		04C68995220E21A40081355C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A5584D7E220E307C001C5763 /* MainViewController.swift */,
 				05E3CA0B221F1C2F002579DC /* LaunchViewController.swift */,
-				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
+				A5584D7E220E307C001C5763 /* MainViewController.swift */,
 				04C68990220E1EC60081355C /* FavoriteViewController.swift */,
 				04D66EB52216259700731E15 /* DetailViewController.swift */,
 			);
@@ -193,6 +192,7 @@
 		05B7E10422176D6400B299F7 /* Date Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				05B7E10522176D8600B299F7 /* String + DateExtensions.swift */,
 				05B7E10222176CA600B299F7 /* Date+Extensions.swift */,
 				A5849B27221A1EE3009E2A14 /* UIViewController+Alerts.swift */,
 			);

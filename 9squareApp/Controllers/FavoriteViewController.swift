@@ -24,9 +24,13 @@ class FavoriteViewController: UIViewController {
     
     var detailVC: DetailViewController!
 
+    fileprivate func fetchCollections() {
+        collections = CollectionsDataManager.fetchCollections()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        collections = CollectionsDataManager.fetchCollections()
+        fetchCollections()
     }
 
     override func viewDidLoad() {
@@ -35,7 +39,7 @@ class FavoriteViewController: UIViewController {
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
-        collections = CollectionsDataManager.fetchCollections()
+        fetchCollections()
     }
 
     
@@ -51,11 +55,11 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         let faveSelection = favoriteVenues[indexPath.section][indexPath.row]
         guard let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
         tvCell.favLabel.text = faveSelection.restaurantName
-        tvCell.addressLabel.text = faveSelection.venue
+        tvCell.addressLabel.text = faveSelection.address
         if let imageData = faveSelection.imageData {
              tvCell.favImage.image = UIImage(data: imageData)
         }
-        tvCell.timeFavoritedLabel.text = faveSelection.tipOne ?? ""
+        tvCell.venueTip.text = faveSelection.venueTip ?? ""
         return tvCell
     }
     
@@ -63,13 +67,15 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         return collections.count
     }
     
-
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return collections[section].collectionName
     }
     
-   
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print(favoriteVenues[indexPath.section][indexPath.row].restaurantName)
+        RestaurantDataManager.deleteRestaurant(atIndex: indexPath.row, collection: favoriteVenues[indexPath.section][indexPath.row].collectionName)
+        fetchCollections()
+    }
     
     
 }

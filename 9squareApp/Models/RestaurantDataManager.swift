@@ -33,7 +33,6 @@ final class RestaurantDataManager {
     }
 
     static public func save(collection: String) {
-        favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: collection)
         do {
             let data = try PropertyListEncoder().encode(favoriteRestaurants)
@@ -44,21 +43,21 @@ final class RestaurantDataManager {
     }
     
     static public func addRestaurant(newFavoriteRestaurant: FaveRestaurant, collection: String) {
+        favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
         favoriteRestaurants.append(newFavoriteRestaurant)
         save(collection: collection)
     }
     
-    
-//    static func delete(favoriteRestaurant: FaveRestaurant, atIndex index: Int, collection: String) {
-//        var favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
-//        favoriteRestaurants.remove(at: index)
-//        
-//        let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: collection)
-//        do {
-//            let data = try PropertyListEncoder().encode(favoriteRestaurants)
-//            try data.write(to: path, options: Data.WritingOptions.atomic)
-//        } catch {
-//            print("property list encoding error: \(error)")
-//        }
-//    }
+    static public func deleteRestaurant(atIndex: Int, collection: String) {
+        favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
+        favoriteRestaurants.remove(at: atIndex)
+        let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: "\(collection).plist")
+        do {
+            let data = try PropertyListEncoder().encode(favoriteRestaurants)
+            try data.write(to: path, options: Data.WritingOptions.atomic)
+        } catch {
+            print("property list encoding error: \(error)")
+        }
+
+    }
 }
