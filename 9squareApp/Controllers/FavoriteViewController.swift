@@ -52,7 +52,11 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         let faveSelection = favoriteVenues[indexPath.section][indexPath.row]
         guard let tvCell = favView.favTableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
         tvCell.favLabel.text = faveSelection.restaurantName
-        tvCell.addressLabel.text = faveSelection.description
+        tvCell.addressLabel.text = faveSelection.venue
+        if let imageData = faveSelection.imageData {
+             tvCell.favImage.image = UIImage.init(data: imageData)
+        }
+        tvCell.timeFavoritedLabel.text = faveSelection.favoritedAt
         return tvCell
     }
     
