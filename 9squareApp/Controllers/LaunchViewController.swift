@@ -24,8 +24,8 @@ class LaunchViewController: UIViewController {
         super.viewDidLoad()
         super.view.addSubview(launchView)
         self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                UIView.animate(withDuration: 0.40, delay: 0, options: [.repeat, .curveEaseIn], animations: {
-            self.launchView.launchImage.transform = CGAffineTransform(rotationAngle: .pi / 2)
+                UIView.animate(withDuration: 0.40, delay: 1, options: [.curveEaseInOut, .repeat], animations: {
+            self.launchView.launchImage.transform = CGAffineTransform(rotationAngle: .pi)
         })
 
     }
