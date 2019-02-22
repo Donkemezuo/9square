@@ -21,7 +21,7 @@ class FavoriteTableViewCell: UITableViewCell {
         var label = UILabel()
         label.text = "Fave label"
         label.font = UIFont(name: "Copperplate-Bold", size: 20)
-        label.textColor = .black
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -29,7 +29,8 @@ class FavoriteTableViewCell: UITableViewCell {
     public lazy var addressLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "Copperplate-Bold", size: 15)
-        label.textColor = .black
+        label.textColor = .white
+        label.numberOfLines = 0
         return label
     }()
     

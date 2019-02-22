@@ -101,7 +101,7 @@ class DetailViewController: UIViewController {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
                 
                 let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , tipOne: venueTipText, description: self.venue.name, venue: self.venue.location.modifiedAddress)
-                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: collectionName)
+                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: "\(collectionName).plist")
                 
                 self.showAlert(title: "Saved", message: "Successfully favorited to \(collectionName) collection")
             }

@@ -10,7 +10,6 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     
-    var testArray = ["Hello", "this", "is", "a", "test"]
     private var favView = FavoriteView()
     private var collections = [CollectionsModel]() {
         didSet {
@@ -54,9 +53,9 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
         tvCell.favLabel.text = faveSelection.restaurantName
         tvCell.addressLabel.text = faveSelection.venue
         if let imageData = faveSelection.imageData {
-             tvCell.favImage.image = UIImage.init(data: imageData)
+             tvCell.favImage.image = UIImage(data: imageData)
         }
-        tvCell.timeFavoritedLabel.text = faveSelection.favoritedAt
+        tvCell.timeFavoritedLabel.text = faveSelection.tipOne ?? ""
         return tvCell
     }
     

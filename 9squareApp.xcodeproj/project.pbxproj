@@ -20,7 +20,6 @@
 		0586C241221383A30095C3AF /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C240221383A30095C3AF /* AppError.swift */; };
 		0586C244221384140095C3AF /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C243221384140095C3AF /* NetworkHelper.swift */; };
 		0586C246221384450095C3AF /* SearchAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C245221384450095C3AF /* SearchAPIClient.swift */; };
-		0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586C247221384A40095C3AF /* ExploreAPIClient.swift */; };
 		05B7E0FA221750EE00B299F7 /* SqPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */; };
 		05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */; };
 		05B7E0FF22176AB000B299F7 /* RestaurantDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */; };
@@ -56,7 +55,6 @@
 		0586C240221383A30095C3AF /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		0586C243221384140095C3AF /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		0586C245221384450095C3AF /* SearchAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIClient.swift; sourceTree = "<group>"; };
-		0586C247221384A40095C3AF /* ExploreAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreAPIClient.swift; sourceTree = "<group>"; };
 		05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqPhotoModel.swift; sourceTree = "<group>"; };
 		05B7E0FB2217695D00B299F7 /* DataPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceManager.swift; sourceTree = "<group>"; };
 		05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDataManager.swift; sourceTree = "<group>"; };
@@ -109,14 +107,15 @@
 			isa = PBXGroup;
 			children = (
 				A5849B29221A26E5009E2A14 /* UserDefaultsKey.swift */,
+				040337732217644E0063960B /* SecretKeys.swift */,
+				0586C242221383B90095C3AF /* NetworkServices */,
+				0586C23D22137EB60095C3AF /* Models */,
+				04C68994220E21890081355C /* Views */,
+				04C68995220E21A40081355C /* Controllers */,
 				05B7E10422176D6400B299F7 /* Date Helpers */,
 				05B7E0FD2217696600B299F7 /* File Manager Helpers */,
 				04D66EB22215FE9300731E15 /* Cell */,
-				04C68995220E21A40081355C /* Controllers */,
-				04C68994220E21890081355C /* Views */,
 				04C6897E220DF4DC0081355C /* AppDelegate.swift */,
-				0586C242221383B90095C3AF /* NetworkServices */,
-				0586C23D22137EB60095C3AF /* Models */,
 				04C68985220DF4DE0081355C /* Assets.xcassets */,
 				04C68987220DF4DE0081355C /* LaunchScreen.storyboard */,
 				914DCBA5221388E000800A25 /* Info.plist */,
@@ -162,13 +161,9 @@
 				0586C23B22137E840095C3AF /* fourSqExplore.swift */,
 				05B7E0FE22176AB000B299F7 /* RestaurantDataManager.swift */,
 				A5474B34221F3900009E83ED /* CollectionsDataManager.swift */,
-				0586C247221384A40095C3AF /* ExploreAPIClient.swift */,
-				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
 				05B7E10022176BD100B299F7 /* FaveRestaurant.swift */,
 				A5474B32221F38D6009E83ED /* CollectionsModel.swift */,
-				040337732217644E0063960B /* SecretKeys.swift */,
 				0586C23E22137EE70095C3AF /* fourSqSearch.swift */,
-				0586C245221384450095C3AF /* SearchAPIClient.swift */,
 				05B7E0F9221750EE00B299F7 /* SqPhotoModel.swift */,
 			);
 			path = Models;
@@ -180,6 +175,8 @@
 				0586C240221383A30095C3AF /* AppError.swift */,
 				0586C243221384140095C3AF /* NetworkHelper.swift */,
 				A5849AF5221625E3009E2A14 /* ImageHelper.swift */,
+				A5849B25221751BD009E2A14 /* ImageAPIClient.swift */,
+				0586C245221384450095C3AF /* SearchAPIClient.swift */,
 			);
 			name = NetworkServices;
 			path = Models/NetworkServices;
@@ -284,7 +281,6 @@
 				914DCBBD2216063C00800A25 /* DetailView.swift in Sources */,
 				0586C244221384140095C3AF /* NetworkHelper.swift in Sources */,
 				0586C241221383A30095C3AF /* AppError.swift in Sources */,
-				0586C248221384A40095C3AF /* ExploreAPIClient.swift in Sources */,
 				05B7E0FC2217695D00B299F7 /* DataPersistenceManager.swift in Sources */,
 				91A8506F221DE0FA00C0E4AB /* FavoriteTableViewCell.swift in Sources */,
 				0586C23F22137EE70095C3AF /* fourSqSearch.swift in Sources */,

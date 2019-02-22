@@ -35,20 +35,6 @@ final class CollectionsDataManager {
     
     static public func save(newCollection: CollectionsModel) {
         var collections = fetchCollections()
-//        for collection in collections {
-//            if collection.collectionName == newCollection.collectionName {
-//                print("repeated collection \(collection.collectionName)")
-//            } else {
-//                print("no repeated collections")
-//                let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: filename)
-//                do {
-//                    let data = try PropertyListEncoder().encode(collections)
-//                    try data.write(to: path, options: Data.WritingOptions.atomic)
-//                } catch {
-//                    print("property list encoding error: \(error)")
-//                }
-//            }
-//        }
         if (collections.filter{ $0.collectionName == newCollection.collectionName }).isEmpty {
         collections.append(newCollection)
         let path = DataPersistenceManager.filepathToDocumentsDirectory(filename: filename)
