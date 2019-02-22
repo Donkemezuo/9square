@@ -12,7 +12,6 @@ class DetailViewController: UIViewController {
     
     private let detailView = DetailView()
     private var venue: VenueStruct!
-//    private var faveRestaurant: FaveRestaurant?
     private let venueTipPlaceHolder = "Add a note about this venue..."
     
     override func viewDidLoad() {
@@ -21,10 +20,6 @@ class DetailViewController: UIViewController {
         detailView.venueName.text = venue.name
         detailView.venueDescription.text =  venue.location.formattedAddress[0] + "\n" + venue.location.formattedAddress[1]
         getVenueImage()
-//        if let favRestaurantToSet = faveRestaurant {
-//            detailView.venueName.text = favRestaurantToSet.restaurantName
-//            detailView.venueDescription.text = favRestaurantToSet.venue
-//        }
         view.backgroundColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         detailView.venueTip.delegate = self
         addVenue()
@@ -48,7 +43,7 @@ class DetailViewController: UIViewController {
                     }
                 }
             }
-        } else {//get the link
+        } else {
             ImageAPIClient.getImages(venueID: venue.id) { (appError, link) in
                 if let appError = appError {
                     print("detailVC imageAPIClient error = \(appError)")
@@ -104,8 +99,14 @@ class DetailViewController: UIViewController {
             guard let collectionName = alertController.textFields?.first?.text, let venueTipText = self.detailView.venueTip.text else {return}
             if let imageData = self.detailView.venueImage.image {
                 let favoritedVenueImage = imageData.jpegData(compressionQuality: 0.5)
-
+                
+                let venueToSet = FaveRestaurant.init(collectionName: collectionName, restaurantName: self.venue.name, favoritedAt: savingDate, imageData: favoritedVenueImage , tipOne: venueTipText, description: self.venue.name, venue: self.venue.location.modifiedAddress)
+                RestaurantDataManager.addRestaurant(newFavoriteRestaurant: venueToSet, collection: collectionName)
+                
+                self.showAlert(title: "Saved", message: "Successfully favorited to \(collectionName) collection")
             }
+            
+          
             
         }
         
