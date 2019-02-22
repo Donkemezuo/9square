@@ -12,3 +12,8 @@ Tools
 - CoreLocation
 - Mapkit
 - FourSquare API
+
+![](9squareGif1.gif)
+![](9squareGif2.gif)
+
+![](9squareGif3.gif)
