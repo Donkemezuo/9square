@@ -24,7 +24,6 @@ final class RestaurantDataManager {
                 }
             } else {
                 print("data is nil")
-                
             }
         } else {
             print("filename \(collection) does not exist")
@@ -43,6 +42,7 @@ final class RestaurantDataManager {
     }
     
     static public func addRestaurant(newFavoriteRestaurant: FaveRestaurant, collection: String) {
+        favoriteRestaurants.removeAll()
         favoriteRestaurants = fetchFavoriteFromDocumentsDirectory(collection: collection)
         favoriteRestaurants.append(newFavoriteRestaurant)
         save(collection: collection)

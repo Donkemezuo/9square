@@ -35,7 +35,7 @@ class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Favorite Venues"
+        navigationItem.title = "Favorite Venues"
         view.addSubview(favView)
         self.favView.favTableView.dataSource = self
         self.favView.favTableView.delegate = self
@@ -48,7 +48,6 @@ class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteVenues[section].count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,8 +71,10 @@ extension FavoriteViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print(favoriteVenues[indexPath.section][indexPath.row].restaurantName)
         RestaurantDataManager.deleteRestaurant(atIndex: indexPath.row, collection: favoriteVenues[indexPath.section][indexPath.row].collectionName)
+        if favoriteVenues[indexPath.section].isEmpty {
+            CollectionsDataManager.removeCollection(atIndex: indexPath.section)
+        }
         fetchCollections()
     }
     

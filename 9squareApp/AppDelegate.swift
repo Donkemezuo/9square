@@ -31,9 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let favoriteVC = FavoriteViewController()
         favoriteVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorites"), tag: 1)
         let mainVCNav = UINavigationController.init(rootViewController: mainVC)
+        let favVCNav = UINavigationController.init(rootViewController: favoriteVC)
         mainVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchIcon"), tag: 0)
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [mainVCNav,favoriteVC]
+        tabBar.viewControllers = [mainVCNav,favVCNav]
         launchScreenVC.present(tabBar, animated: true, completion: nil)
     }
     
